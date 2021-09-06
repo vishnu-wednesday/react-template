@@ -49,7 +49,9 @@ exports[`<TrackCard /> should render and match the snapshot 1`] = `
           </div>
         </div>
         <figure>
-          <figcaption>
+          <figcaption
+            class="TrackCard__StyledCaption-sc-10bk196-3 jhwGow"
+          >
             Play it!
           </figcaption>
           <audio

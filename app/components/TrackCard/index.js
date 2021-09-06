@@ -6,12 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Card, Avatar } from 'antd';
+import { Card, Avatar, Skeleton } from 'antd';
 import { injectIntl } from 'react-intl';
 import { compose } from 'redux';
-import { colors, fonts } from '@themes';
+import { colors, fonts, styles } from '@themes';
 
 import T from '@components/T';
+import If from '../If/index';
 
 const { Meta } = Card;
 
@@ -33,6 +34,12 @@ const AlbumNameT = styled(T)`
   }
 `;
 
+const StyledCaption = styled.figcaption`
+  clear: both;
+  ${styles.margin.top(1)}
+  ${styles.margin.left(0.5)}
+`;
+
 const getSecondValue = (item) => {
   if (item.wrapperType === 'track') {
     return item.trackName;
@@ -41,49 +48,56 @@ const getSecondValue = (item) => {
   }
 };
 
-export function TrackCard({ index, track, intl }) {
+export function TrackCard({ index, track, intl, loading }) {
   return (
-    <Card key={index} data-testid="track-card">
-      <Meta
-        avatar={
-          <Avatar
-            size={{
-              xs: 24,
-              sm: 32,
-              md: 40,
-              lg: 64,
-              xl: 80,
-              xxl: 100
-            }}
-            src={track.artworkUrl100}
-          />
-        }
-        description={
-          <div>
-            <AlbumNameT
-              id="main_text"
-              values={{ value: getSecondValue(track) }}
-              clearFloat={true}
-              data-testid="main-value"
+    <>
+      <If condition={track}>
+        <Card key={index} data-testid="track-card">
+          <Skeleton loading={loading} avatar active>
+            <Meta
+              avatar={
+                <Avatar
+                  size={{
+                    xs: 32,
+                    sm: 38,
+                    md: 40,
+                    lg: 64,
+                    xl: 80,
+                    xxl: 100
+                  }}
+                  src={track.artworkUrl100}
+                />
+              }
+              description={
+                <div>
+                  <AlbumNameT
+                    id="main_text"
+                    values={{ value: getSecondValue(track) }}
+                    clearFloat={true}
+                    data-testid="main-value"
+                  />
+                  <StyleT id="artist_name" values={{ artistName: track.artistName }} clearFloat={true} />
+                </div>
+              }
             />
-            <StyleT id="artist_name" values={{ artistName: track.artistName }} clearFloat={true} />
-          </div>
-        }
-      />
-      <figure>
-        <figcaption>{intl.formatMessage({ id: 'listen_to_it' })}</figcaption>
-        <Audio controls src={track.previewUrl}>
-          <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
-        </Audio>
-      </figure>
-    </Card>
+            <figure>
+              <StyledCaption>{intl.formatMessage({ id: 'listen_to_it' })}</StyledCaption>
+              <Audio controls src={track.previewUrl}>
+                <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
+              </Audio>
+            </figure>
+          </Skeleton>
+        </Card>
+      </If>
+    </>
   );
 }
 
 TrackCard.propTypes = {
   index: PropTypes.number,
   track: PropTypes.object,
-  intl: PropTypes.object
+  intl: PropTypes.object,
+  loading: PropTypes.boolean
 };
 
 export default compose(injectIntl)(TrackCard);

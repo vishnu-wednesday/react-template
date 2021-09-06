@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-import { Card, Skeleton, Input, Row, Col } from 'antd';
+import { Card, Input, Row, Col } from 'antd';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -19,6 +19,7 @@ import homeContainerSaga from './saga';
 import For from '@app/components/For/index';
 import TrackCard from '@app/components/TrackCard/index';
 import If from '@app/components/If/index';
+import { styles } from '@themes';
 
 const { Search } = Input;
 
@@ -45,6 +46,9 @@ const RightContent = styled.div`
   align-self: flex-end;
 `;
 
+const StyledDiv = styled.div`
+  ${styles.margin.bottom(1)}
+`;
 export function HomeContainer({
   dispatchItunesSearch,
   dispatchClearItunesSearch,
@@ -89,36 +93,34 @@ export function HomeContainer({
     const items = get(itunesSearchData, 'results', []);
     const totalCount = get(itunesSearchData, 'resultCount', 0);
     return (
-      (items.length !== 0 || loading) && (
+      <If condition={items.length}>
         <CustomCard>
-          <Skeleton loading={loading} active>
-            {/* the if component seems to be appropriate here.. */}
-            <If condition={itunesSearchTerm}>
-              <div>
-                <T id="search_query" values={{ itunesSearchTerm }} />
-              </div>
-            </If>
-            <If condition={totalCount !== 0}>
-              <div>
-                <T id="matching_results" values={{ totalCount }} />
-              </div>
-            </If>
-            {/* Using the for component */}
-            <For
-              of={items}
-              ParentComponent={(props) => <Row {...props} />}
-              renderItem={(item) => {
-                return (
-                  <Col span={8}>
-                    <TrackCard index={item.collectionId} track={item} />
-                  </Col>
-                );
-              }}
-              gutter={[16, 16]}
-            />
-          </Skeleton>
+          {/* the if component seems to be appropriate here.. */}
+          <If condition={itunesSearchTerm}>
+            <div>
+              <T id="search_query" values={{ itunesSearchTerm }} />
+            </div>
+          </If>
+          <If condition={totalCount !== 0}>
+            <StyledDiv>
+              <T id="matching_results" values={{ totalCount }} />
+            </StyledDiv>
+          </If>
+          {/* Using the for component */}
+          <For
+            of={items}
+            ParentComponent={(props) => <Row {...props} />}
+            renderItem={(item) => {
+              return (
+                <Col xs={24} md={8} span={8}>
+                  <TrackCard index={item.collectionId} track={item} loading={loading} />
+                </Col>
+              );
+            }}
+            gutter={[16, 16]}
+          />
         </CustomCard>
-      )
+      </If>
     );
   };
   const renderErrorState = () => {
