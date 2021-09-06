@@ -21,7 +21,7 @@ describe('<Clickable /> component tests', () => {
     expect(getAllByTestId('clickable').length).toBe(1);
   });
 
-  it('should contain render the text according to the textId', () => {
+  it('should render the text according to the textId', () => {
     const { getAllByText } = renderWithIntl(<Clickable onClick={jest.fn()} textId="wednesday_solutions" />);
     expect(getAllByText(/Wednesday Solutions/).length).toBe(1);
   });

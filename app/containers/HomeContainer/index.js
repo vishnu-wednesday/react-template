@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-import { Card, Skeleton, Input } from 'antd';
+import { Card, Skeleton, Input, Row, Col } from 'antd';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +16,9 @@ import { injectSaga } from 'redux-injectors';
 import { selectHomeContainer, selectSearchData, selectSearchError, selectSearchTerm } from './selectors';
 import { homeContainerCreators } from './reducer';
 import homeContainerSaga from './saga';
+import For from '@app/components/For/index';
+import TrackCard from '@app/components/TrackCard/index';
+import If from '@app/components/If/index';
 
 const { Search } = Input;
 
@@ -41,6 +44,7 @@ const RightContent = styled.div`
   display: flex;
   align-self: flex-end;
 `;
+
 export function HomeContainer({
   dispatchItunesSearch,
   dispatchClearItunesSearch,
@@ -54,7 +58,8 @@ export function HomeContainer({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const loaded = get(itunesSearchData, 'items', null) || itunesSearchError;
+    // second param is the key. Here we will look for results.
+    const loaded = get(itunesSearchData, 'results', null) || itunesSearchError;
     if (loading && loaded) {
       setLoading(false);
     }
@@ -62,6 +67,7 @@ export function HomeContainer({
 
   useEffect(() => {
     if (itunesSearchTerm && !itunesSearchData?.items?.length) {
+      // eslint-disable-next-line no-console
       dispatchItunesSearch(itunesSearchTerm);
       setLoading(true);
     }
@@ -79,55 +85,71 @@ export function HomeContainer({
   };
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
 
-  const renderRepoList = () => {
-    const items = get(itunesSearchData, 'items', []);
-    const totalCount = get(itunesSearchData, 'totalCount', 0);
+  const renderSearchResult = () => {
+    const items = get(itunesSearchData, 'results', []);
+    const totalCount = get(itunesSearchData, 'resultCount', 0);
     return (
       (items.length !== 0 || loading) && (
         <CustomCard>
           <Skeleton loading={loading} active>
-            {itunesSearchTerm && (
+            {/* the if component seems to be appropriate here.. */}
+            <If condition={itunesSearchTerm}>
               <div>
                 <T id="search_query" values={{ itunesSearchTerm }} />
               </div>
-            )}
-            {totalCount !== 0 && (
+            </If>
+            <If condition={totalCount !== 0}>
               <div>
-                <T id="matching_repos" values={{ totalCount }} />
+                <T id="matching_results" values={{ totalCount }} />
               </div>
-            )}
+            </If>
+            {/* Using the for component */}
+            <For
+              of={items}
+              ParentComponent={(props) => <Row {...props} />}
+              renderItem={(item) => {
+                return (
+                  <Col span={8}>
+                    <TrackCard index={item.collectionId} track={item} />
+                  </Col>
+                );
+              }}
+              gutter={[16, 16]}
+            />
           </Skeleton>
         </CustomCard>
       )
     );
   };
   const renderErrorState = () => {
-    let repoError;
+    let searchError;
     if (itunesSearchError) {
-      repoError = itunesSearchError;
-    } else if (!get(itunesSearchData, 'totalCount', 0)) {
-      repoError = 'respo_search_default';
+      searchError = itunesSearchError;
+    } else if (!get(itunesSearchData, 'resultCount', 0)) {
+      searchError = 'itunes_search_default';
     }
     return (
       !loading &&
-      repoError && (
-        <CustomCard color={itunesSearchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'repo_list' })}>
-          <T id={repoError} />
+      searchError && (
+        <CustomCard color={itunesSearchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'itunes_search_list' })}>
+          <T id={searchError} />
         </CustomCard>
       )
     );
   };
+
   const refreshPage = () => {
     history.push('stories');
     window.location.reload();
   };
+
   return (
     <Container maxwidth={maxwidth} padding={padding}>
       <RightContent>
         <Clickable textId="stories" onClick={refreshPage} />
       </RightContent>
-      <CustomCard title={intl.formatMessage({ id: 'repo_search' })} maxwidth={maxwidth}>
-        <T marginBottom={10} id="get_repo_details" />
+      <CustomCard title={intl.formatMessage({ id: 'itunes_search' })} maxwidth={maxwidth}>
+        <T marginBottom={10} id="get_itunes_details" />
         <Search
           data-testid="search-bar"
           defaultValue={itunesSearchTerm}
@@ -136,7 +158,7 @@ export function HomeContainer({
           onSearch={(searchText) => debouncedHandleOnChange(searchText)}
         />
       </CustomCard>
-      {renderRepoList()}
+      {renderSearchResult()}
       {renderErrorState()}
     </Container>
   );
