@@ -93,7 +93,7 @@ export function HomeContainer({
     const items = get(itunesSearchData, 'results', []);
     const totalCount = get(itunesSearchData, 'resultCount', 0);
     return (
-      <If condition={items.length}>
+      <If condition={!!items.length}>
         <CustomCard>
           {/* the if component seems to be appropriate here.. */}
           <If condition={itunesSearchTerm}>

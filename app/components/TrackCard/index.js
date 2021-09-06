@@ -97,7 +97,7 @@ TrackCard.propTypes = {
   index: PropTypes.number,
   track: PropTypes.object,
   intl: PropTypes.object,
-  loading: PropTypes.boolean
+  loading: PropTypes.bool
 };
 
 export default compose(injectIntl)(TrackCard);
