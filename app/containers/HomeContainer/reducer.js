@@ -3,6 +3,7 @@
  * HomeContainer reducer
  *
  */
+import { translate } from '@app/components/IntlGlobalProvider/index';
 import produce from 'immer';
 import { get } from 'lodash';
 import { createActions } from 'reduxsauce';
@@ -31,7 +32,7 @@ export const homeContainerReducer = produce((draft, action) => {
 
     case homeContainerTypes.FAILURE_GET_TRACKS:
       // handle error better
-      draft.searchError = get(action.error, 'message', 'something_went_wrong');
+      draft.searchError = get(action.error, 'message', translate('something_went_wrong'));
       break;
 
     case homeContainerTypes.CLEAR_TRACKS:

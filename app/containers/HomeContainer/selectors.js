@@ -17,13 +17,10 @@ import { iTunesServiceInitialState } from './reducer';
 //export const selectHomeContainer = () => createSelector(selectHomeContainerDomain, (substate) => substate);
 export const selectHomeContainer = (state) => state.homeContainer || iTunesServiceInitialState;
 
-export const selectSearchData = () =>
-  createSelector(selectHomeContainer, (substate) => get(substate, 'searchData', null));
+export const selectSearchData = () => createSelector(selectHomeContainer, (substate) => get(substate, 'searchData'));
 
-export const selectSearchError = () =>
-  createSelector(selectHomeContainer, (substate) => get(substate, 'searchError', null));
+export const selectSearchError = () => createSelector(selectHomeContainer, (substate) => get(substate, 'searchError'));
 
-export const selectSearchTerm = () =>
-  createSelector(selectHomeContainer, (substate) => get(substate, 'searchTerm', null));
+export const selectSearchTerm = () => createSelector(selectHomeContainer, (substate) => get(substate, 'searchTerm'));
 
 export default selectHomeContainer;
