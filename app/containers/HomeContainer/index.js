@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import get from 'lodash/get';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-import { Card, Skeleton, Input, Avatar } from 'antd';
+import { Card, Skeleton, Input, Avatar, Row, Col } from 'antd';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -121,38 +121,41 @@ export function HomeContainer({
             {/* Using the for component */}
             <For
               of={items}
+              ParentComponent={(props) => <Row {...props} />}
               renderItem={(item, index) => {
                 return (
-                  <CustomCard key={index}>
-                    <Meta
-                      avatar={
-                        <Avatar
-                          size={{
-                            xs: 24,
-                            sm: 32,
-                            md: 40,
-                            lg: 64,
-                            xl: 80,
-                            xxl: 100
-                          }}
-                          src={item.artworkUrl100}
-                        />
-                      }
-                      description={
-                        <figure>
-                          <figcaption>{intl.formatMessage({ id: 'listen_to_it' })}</figcaption>
-                          <Audio controls src={item.previewUrl}>
-                            <T id="no_audio_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
-                          </Audio>
-                        </figure>
-                      }
-                    />
-                    <T id="artist_name" values={{ artistName: item.artistName }} clearFloat={true} />
-                    <T id="second_value" values={{ value: getSecondValue(item) }} />
-                  </CustomCard>
+                  <Col span={8}>
+                    <CustomCard key={index}>
+                      <Meta
+                        avatar={
+                          <Avatar
+                            size={{
+                              xs: 24,
+                              sm: 32,
+                              md: 40,
+                              lg: 64,
+                              xl: 80,
+                              xxl: 100
+                            }}
+                            src={item.artworkUrl100}
+                          />
+                        }
+                        description={
+                          <figure>
+                            <figcaption>{intl.formatMessage({ id: 'listen_to_it' })}</figcaption>
+                            <Audio controls src={item.previewUrl}>
+                              <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
+                            </Audio>
+                          </figure>
+                        }
+                      />
+                      <T id="artist_name" values={{ artistName: item.artistName }} clearFloat={true} />
+                      <T id="second_value" values={{ value: getSecondValue(item) }} />
+                    </CustomCard>
+                  </Col>
                 );
               }}
-              noParent={true}
+              gutter={[16, 16]}
             />
           </Skeleton>
         </CustomCard>
@@ -160,17 +163,17 @@ export function HomeContainer({
     );
   };
   const renderErrorState = () => {
-    let repoError;
+    let searchError;
     if (itunesSearchError) {
-      repoError = itunesSearchError;
+      searchError = itunesSearchError;
     } else if (!get(itunesSearchData, 'resultCount', 0)) {
-      repoError = 'itunes_search_default';
+      searchError = 'itunes_search_default';
     }
     return (
       !loading &&
-      repoError && (
+      searchError && (
         <CustomCard color={itunesSearchError ? 'red' : 'grey'} title={intl.formatMessage({ id: 'itunes_search_list' })}>
-          <T id={repoError} />
+          <T id={searchError} />
         </CustomCard>
       )
     );
