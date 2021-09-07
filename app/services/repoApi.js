@@ -6,4 +6,6 @@ export const getRepos = (repoName) => repoApi.get(`/search/repositories?q=${repo
 
 export const getTracks = (trackName) => iTunesApi.get(`/search?term=${trackName}`);
 
+export const lookUpTrackDetails = (lookUpId) => iTunesApi.get(`/lookup?id=${lookUpId}`);
+
 //Maybe change this file name for all purposes considered? apiStore.js or something?

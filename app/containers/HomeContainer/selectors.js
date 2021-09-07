@@ -23,4 +23,7 @@ export const selectSearchError = () => createSelector(selectHomeContainer, (subs
 
 export const selectSearchTerm = () => createSelector(selectHomeContainer, (substate) => get(substate, 'searchTerm'));
 
+export const selectTrackDetails = () =>
+  createSelector(selectHomeContainer, (substate) => get(substate, 'trackDetails'));
+
 export default selectHomeContainer;

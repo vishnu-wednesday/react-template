@@ -12,13 +12,23 @@ export const { Types: homeContainerTypes, Creators: homeContainerCreators } = cr
   requestGetTracks: ['searchTerm'],
   successGetTracks: ['data'],
   failureGetTracks: ['error'],
+  requestGetTrackDetails: ['lookUpId'],
+  successGetTrackDetails: ['trackDetails'],
+  failureGetTrackDetails: ['detailError'],
   clearTracks: []
 });
 
 // the data keys that becomes the props?
 export const initialState = { repoName: null, reposData: [], reposError: null };
 
-export const iTunesServiceInitialState = { searchTerm: null, searchData: {}, searchError: null };
+export const iTunesServiceInitialState = {
+  searchTerm: null,
+  searchData: {},
+  searchError: null,
+  lookUpId: null,
+  trackDetails: {},
+  trackDetailsError: null
+};
 
 export const homeContainerReducer = produce((draft, action) => {
   switch (action.type) {
@@ -34,6 +44,18 @@ export const homeContainerReducer = produce((draft, action) => {
       // handle error better
       // ask about testing with translate..
       draft.searchError = get(action.error, 'message', translate('something_went_wrong'));
+      break;
+
+    case homeContainerTypes.REQUEST_GET_TRACK_DETAILS:
+      draft.lookUpId = action.lookUpId;
+      break;
+
+    case homeContainerTypes.SUCCESS_GET_TRACK_DETAILS:
+      draft.trackDetails = action.data;
+      break;
+
+    case homeContainerTypes.FAILURE_GET_TRACK_DETAILS:
+      draft.trackDetailsError = get(action.error, 'message', translate('something_went_wrong'));
       break;
 
     case homeContainerTypes.CLEAR_TRACKS:
