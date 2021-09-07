@@ -1,7 +1,5 @@
 // eslint-disable-next-line
-import { appLocales, DEFAULT_LOCALE, translationMessages } from '@app/i18n';
-
-import { useIntl, createIntl, createIntlCache } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 // 'intl' service singleton reference
 let intl;
@@ -16,18 +14,8 @@ export function appIntl() {
   return intl;
 }
 
-// setIntl for testing.
-export function setIntl(locale = DEFAULT_LOCALE) {
-  const cache = createIntlCache();
-  const getMessages = (locale) => translationMessages[locale];
-
-  intl = createIntl(
-    {
-      locale: appLocales,
-      messages: getMessages(locale)
-    },
-    cache
-  );
+export function setIntl(intlToSet) {
+  intl = intlToSet;
 }
 
 export const translate = (id, values = {}) => intl.formatMessage({ id }, values);

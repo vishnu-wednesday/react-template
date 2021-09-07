@@ -1,3 +1,4 @@
+import { createIntlUtil } from '@app/utils/testUtils';
 import { setIntl } from '@components/IntlGlobalProvider';
 import { homeContainerReducer, iTunesServiceInitialState, homeContainerTypes } from '../reducer';
 
@@ -35,7 +36,7 @@ describe('HomContainer reducer tests', () => {
   });
 
   it('should ensure that the an error message is shown and loading = false when FAILURE_GET_TRACKS is dispatched', () => {
-    setIntl();
+    setIntl(createIntlUtil());
     const error = {
       message: 'something_went_wrong'
     };
