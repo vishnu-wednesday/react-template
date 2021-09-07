@@ -1,13 +1,10 @@
 import { createSelector } from 'reselect';
 import get from 'lodash/get';
-import { initialState } from './reducer';
+import { iTunesServiceInitialState } from './reducer';
 
 /**
  * Direct selector to the homeContainer state domain
  */
-
-const selectHomeContainerDomain = (state) => state.homeContainer || initialState;
-
 /**
  * Other specific selectors
  */
@@ -15,15 +12,15 @@ const selectHomeContainerDomain = (state) => state.homeContainer || initialState
 /**
  * Default selector used by HomeContainer
  */
+// is this wrong? https://redux.js.org/usage/deriving-data-selectors#createselector-overview. Read the Warning
+// we have DRY breakage here...
+//export const selectHomeContainer = () => createSelector(selectHomeContainerDomain, (substate) => substate);
+export const selectHomeContainer = (state) => state.homeContainer || iTunesServiceInitialState;
 
-export const selectHomeContainer = () => createSelector(selectHomeContainerDomain, (substate) => substate);
+export const selectSearchData = () => createSelector(selectHomeContainer, (substate) => get(substate, 'searchData'));
 
-export const selectReposData = () =>
-  createSelector(selectHomeContainerDomain, (substate) => get(substate, 'reposData', null));
+export const selectSearchError = () => createSelector(selectHomeContainer, (substate) => get(substate, 'searchError'));
 
-export const selectReposError = () =>
-  createSelector(selectHomeContainerDomain, (substate) => get(substate, 'reposError', null));
+export const selectSearchTerm = () => createSelector(selectHomeContainer, (substate) => get(substate, 'searchTerm'));
 
-export const selectRepoName = () =>
-  createSelector(selectHomeContainerDomain, (substate) => get(substate, 'repoName', null));
 export default selectHomeContainer;
