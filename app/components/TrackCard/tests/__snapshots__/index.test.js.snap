@@ -34,7 +34,7 @@ exports[`<TrackCard /> should render and match the snapshot 1`] = `
               <div>
                 <p
                   class="T__StyledText-gjlic1-0 bxtGdb TrackCard__AlbumNameT-sc-10bk196-2 hhggcZ"
-                  data-testid="main-value"
+                  data-testid="track_or_collection"
                 >
                   
                 </p>

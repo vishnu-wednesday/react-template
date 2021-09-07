@@ -12,7 +12,7 @@ import { compose } from 'redux';
 import { colors, fonts, styles } from '@themes';
 
 import T from '@components/T';
-import If from '../If/index';
+import If from '@components/If';
 
 const { Meta } = Card;
 
@@ -40,18 +40,17 @@ const StyledCaption = styled.figcaption`
   ${styles.margin.left(0.5)}
 `;
 
-const getSecondValue = (item) => {
+const getTrackOrCollection = (item) => {
   if (item.wrapperType === 'track') {
     return item.trackName;
-  } else {
-    return item.collectionName;
   }
+  return item.collectionName;
 };
 
 export function TrackCard({ index, track, intl, loading }) {
   return (
     <>
-      <If condition={track}>
+      <If condition={!!track}>
         <Card key={index} data-testid="track-card">
           <Skeleton loading={loading} avatar active>
             <Meta
@@ -71,10 +70,10 @@ export function TrackCard({ index, track, intl, loading }) {
               description={
                 <div>
                   <AlbumNameT
-                    id="main_text"
-                    values={{ value: getSecondValue(track) }}
+                    id="track_or_collection"
+                    values={{ value: getTrackOrCollection(track) }}
                     clearFloat={true}
-                    data-testid="main-value"
+                    data-testid="track_or_collection"
                   />
                   <StyleT id="artist_name" values={{ artistName: track.artistName }} clearFloat={true} />
                 </div>
@@ -98,6 +97,10 @@ TrackCard.propTypes = {
   track: PropTypes.object,
   intl: PropTypes.object,
   loading: PropTypes.bool
+};
+
+TrackCard.defaultProps = {
+  track: {}
 };
 
 export default compose(injectIntl)(TrackCard);

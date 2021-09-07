@@ -16,9 +16,9 @@ import { injectSaga } from 'redux-injectors';
 import { selectHomeContainer, selectSearchData, selectSearchError, selectSearchTerm } from './selectors';
 import { homeContainerCreators } from './reducer';
 import homeContainerSaga from './saga';
-import For from '@app/components/For/index';
-import TrackCard from '@app/components/TrackCard/index';
-import If from '@app/components/If/index';
+import For from '@components/For';
+import TrackCard from '@components/TrackCard';
+import If from '@components/If';
 import { styles } from '@themes';
 
 const { Search } = Input;
@@ -63,7 +63,7 @@ export function HomeContainer({
 
   useEffect(() => {
     // second param is the key. Here we will look for results.
-    const loaded = get(itunesSearchData, 'results', null) || itunesSearchError;
+    const loaded = get(itunesSearchData, 'results', itunesSearchError);
     if (loading && loaded) {
       setLoading(false);
     }
@@ -71,7 +71,6 @@ export function HomeContainer({
 
   useEffect(() => {
     if (itunesSearchTerm && !itunesSearchData?.items?.length) {
-      // eslint-disable-next-line no-console
       dispatchItunesSearch(itunesSearchTerm);
       setLoading(true);
     }
@@ -96,12 +95,12 @@ export function HomeContainer({
       <If condition={!!items.length}>
         <CustomCard>
           {/* the if component seems to be appropriate here.. */}
-          <If condition={itunesSearchTerm}>
+          <If condition={!!itunesSearchTerm}>
             <div>
               <T id="search_query" values={{ itunesSearchTerm }} />
             </div>
           </If>
-          <If condition={totalCount !== 0}>
+          <If condition={!!totalCount}>
             <StyledDiv>
               <T id="matching_results" values={{ totalCount }} />
             </StyledDiv>

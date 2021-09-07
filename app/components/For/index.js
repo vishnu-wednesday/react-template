@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const FlexContainer = styled.div`
@@ -27,13 +27,13 @@ export function For({ of, ParentComponent = (props) => <FlexContainer {...props}
 }
 
 For.propTypes = {
-  of: Proptypes.array,
-  type: Proptypes.node,
-  parent: Proptypes.object,
-  iteratee: Proptypes.string,
-  renderItem: Proptypes.func.isRequired,
-  noParent: Proptypes.bool,
-  isRow: Proptypes.bool
+  of: PropTypes.array,
+  type: PropTypes.node,
+  parent: PropTypes.object,
+  iteratee: PropTypes.string,
+  renderItem: PropTypes.func.isRequired,
+  noParent: PropTypes.bool,
+  isRow: PropTypes.bool
 };
 For.defaultProps = {
   isRow: true

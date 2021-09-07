@@ -12,7 +12,7 @@ If.propTypes = {
    * @type boolean
    * condition to check
    */
-  condition: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  condition: PropTypes.bool,
   /**
    * @type ReactNode
    * to render if condition is false

@@ -8,7 +8,7 @@
   "something_went_wrong": "Sorry. Something went wrong! Please try again in sometime.",
   "stories": "Go to Storybook",
   "artist_name": "{artistName}",
-  "main_text": "{value}",
+  "track_or_collection": "{value}",
   "track_audiobook": "Track Or AudioBook: {trackOrAudioBook}",
   "listen_to_it": "Play it!",
   "wednesday_solutions": "Wednesday Solutions",
