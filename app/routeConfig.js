@@ -1,11 +1,19 @@
 import NotFound from '@containers/NotFoundPage/Loadable';
-import HomeContainer from '@containers/HomeContainer/Loadable';
+import HomeContainer from '@containers/HomeContainer/ITunesGrid/Loadable';
+import ITunesDetailContainer from '@app/containers/HomeContainer/ITunesDetail/Loadable';
+
 import routeConstants from '@utils/routeConstants';
 export const routeConfig = {
-  repos: {
+  tracks: {
     component: HomeContainer,
-    ...routeConstants.repos
+    ...routeConstants.tracks
   },
+
+  trackDetail: {
+    component: ITunesDetailContainer,
+    ...routeConstants.trackDetail
+  },
+
   notFoundPage: {
     component: NotFound,
     route: '/'

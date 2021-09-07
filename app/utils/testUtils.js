@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router-dom';
+import { browserHistory, BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
@@ -13,7 +13,9 @@ import { IntlGlobalProvider } from '@components/IntlGlobalProvider';
 export const renderWithIntl = (children) =>
   render(
     <IntlProvider locale={DEFAULT_LOCALE} messages={translationMessages[DEFAULT_LOCALE]}>
-      <IntlGlobalProvider>{children}</IntlGlobalProvider>
+      <BrowserRouter>
+        <IntlGlobalProvider>{children}</IntlGlobalProvider>
+      </BrowserRouter>
     </IntlProvider>
   );
 
