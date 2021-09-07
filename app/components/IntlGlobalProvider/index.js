@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // eslint-disable-next-line
 import { appLocales, DEFAULT_LOCALE, translationMessages } from '@app/i18n';
 
