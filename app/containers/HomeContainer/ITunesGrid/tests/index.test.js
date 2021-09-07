@@ -1,13 +1,13 @@
 /**
  *
- * Tests for HomeContainer
+ * Tests for HomeContainer (ITunesGrid)
  *
  */
 
 import React from 'react';
 import { timeout, renderProvider } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
-import { HomeContainerTest as HomeContainer } from '../ITunesGrid/index';
+import { HomeContainerTest as HomeContainer } from '../index';
 
 describe('<HomeContainer /> tests', () => {
   let submitSpy;
