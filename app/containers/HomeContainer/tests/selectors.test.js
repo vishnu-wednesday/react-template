@@ -1,21 +1,30 @@
-import { selectHomeContainer, selectSearchData, selectSearchError, selectSearchTerm } from '../selectors';
+import {
+  selectHomeContainer,
+  selectSearchData,
+  selectSearchError,
+  selectSearchTerm,
+  selectTrackDetails
+} from '../selectors';
 
 describe('HomeContainer selector tests', () => {
   let mockedState;
   let searchTerm;
   let searchData;
   let searchError;
+  let trackDetails;
 
   beforeEach(() => {
     searchTerm = 'Rihana';
     searchData = { resultCount: 1, results: [{ searchTerm }] };
     searchError = 'There was some error while fetching the repository details';
+    trackDetails = { resultCount: 1, results: { songDetails: 'abc' } };
 
     mockedState = {
       homeContainer: {
         searchTerm,
         searchData,
-        searchError
+        searchError,
+        trackDetails
       }
     };
   });
@@ -35,5 +44,10 @@ describe('HomeContainer selector tests', () => {
   it('should select the reposError', () => {
     const reposErrorSelector = selectSearchError();
     expect(reposErrorSelector(mockedState)).toEqual(searchError);
+  });
+
+  it('should select the trackDetails', () => {
+    const trackDetailsSelector = selectTrackDetails();
+    expect(trackDetailsSelector(mockedState)).toEqual(trackDetails);
   });
 });
