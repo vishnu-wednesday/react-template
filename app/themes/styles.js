@@ -136,7 +136,8 @@ export default {
     row,
     column,
     rowCenter,
-    unequalColumns
+    unequalColumns,
+    configureFlex
   },
   boxShadow
 };

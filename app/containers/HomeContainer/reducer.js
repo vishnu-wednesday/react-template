@@ -51,11 +51,11 @@ export const homeContainerReducer = produce((draft, action) => {
       break;
 
     case homeContainerTypes.SUCCESS_GET_TRACK_DETAILS:
-      draft.trackDetails = action.data;
+      draft.trackDetails = action.trackDetails;
       break;
 
     case homeContainerTypes.FAILURE_GET_TRACK_DETAILS:
-      draft.trackDetailsError = get(action.error, 'message', translate('something_went_wrong'));
+      draft.trackDetailsError = get(action.detailError, 'message', translate('something_went_wrong'));
       break;
 
     case homeContainerTypes.CLEAR_TRACKS:

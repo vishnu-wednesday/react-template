@@ -11,6 +11,8 @@
   "track_or_collection": "{value}",
   "track_audiobook": "Track Or AudioBook: {trackOrAudioBook}",
   "listen_to_it": "Play it!",
+  "to_listen_full": "Click here to go to Apple Music store",
+  "primary_genre": "Primary Genre:",
   "wednesday_solutions": "Wednesday Solutions",
   "audio_no_support": "Your browser doesn't support <code>audio</code> HTML element"
 }

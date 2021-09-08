@@ -11,6 +11,7 @@ const secondary = '#f8c49c';
 const success = '#28a745';
 const error = '#dc3545';
 const artistNameColor = '#311947d4';
+const backgroundColor = 'papayawhip';
 
 const colors = {
   transparent: 'rgba(0,0,0,0)',
@@ -21,6 +22,7 @@ const colors = {
   success,
   error,
   artistNameColor,
+  backgroundColor,
   theme: {
     lightMode: {
       primary,

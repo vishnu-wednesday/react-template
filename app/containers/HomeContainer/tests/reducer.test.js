@@ -91,7 +91,7 @@ describe('ITunesDetails Specific Reducer Tests', () => {
     expect(
       homeContainerReducer(state, {
         type: homeContainerTypes.SUCCESS_GET_TRACK_DETAILS,
-        data
+        trackDetails: data
       })
     ).toEqual(expectedResult);
   });
