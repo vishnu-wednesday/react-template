@@ -86,7 +86,7 @@ export function HomeContainer({
       dispatchClearItunesSearch();
     }
   };
-  const debouncedHandleOnChange = debounce(handleOnChange, 200);
+  const debouncedHandleOnChange = debounce(handleOnChange, 400);
 
   const renderSearchResult = () => {
     const items = get(itunesSearchData, 'results', []);
@@ -173,7 +173,7 @@ HomeContainer.propTypes = {
     resultCount: PropTypes.number,
     results: PropTypes.array
   }),
-  itunesSearchError: PropTypes.object,
+  itunesSearchError: PropTypes.string,
   itunesSearchTerm: PropTypes.string,
   history: PropTypes.object,
   maxwidth: PropTypes.number,

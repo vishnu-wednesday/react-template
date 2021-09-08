@@ -2,7 +2,7 @@ import React, { memo, useEffect } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Row, Col, Image, Card, Divider, List, Avatar } from 'antd';
+import { Row, Col, Image, Card, Divider, List, Avatar, Tag } from 'antd';
 import { createStructuredSelector } from 'reselect';
 import { injectIntl } from 'react-intl';
 import { compose } from 'redux';
@@ -38,6 +38,7 @@ const StyledSection = styled.section``;
 const ImageAudioSection = styled.section`
   background: ${colors.backgroundColor};
   ${styles.flexConfig.configureFlex('row', 'space-around')}
+  flex-wrap: wrap;
   padding: 1rem;
 `;
 
@@ -57,33 +58,69 @@ const StyleT = styled(T)`
 
 const ListTitleT = styled(T)`
   && {
-    ${fonts.style.subheading()}
+    ${fonts.style.subheading()};
+    opacity: 0.5;
   }
 `;
 
 const StyledPara = styled.p`
   && {
-    ${fonts.style.standard()}
-    ${fonts.weights.bold()}
+    ${fonts.style.standard()};
+    ${fonts.weights.bold()};
+    color: ${colors.text};
   }
 `;
 
-export function ITunesDetailContainer({ maxwidth, padding, dispatchGetTrackDetails, trackDetails }) {
+export function ITunesDetailContainer({
+  maxwidth,
+  padding,
+  dispatchGetTrackDetails,
+  dispatchClearTrackDetails,
+  trackDetails
+}) {
   const { id: lookUpId } = useParams();
 
   useEffect(() => {
     dispatchGetTrackDetails(lookUpId);
+    return () => {
+      dispatchClearTrackDetails();
+    };
   }, [lookUpId]);
+
+  const millisToMinutesAndSeconds = (millis) => {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  };
+
+  const parseYearFromDateString = (dateString) => {
+    return new Date(dateString).getFullYear().toString(10);
+  };
 
   const renderLeftCard = () => {
     return (
       <StyledCard hoverable>
         <ImageAudioSection>
-          <Image src={trackDetails.artworkUrl100} alt={trackDetails.artistName} width={200} />
-          <div>
+          <Image src={trackDetails.artworkUrl100} alt={trackDetails.artistName} width={240} data-testid="album-image" />
+          <div
+            css={`
+              display: flex;
+              flex-direction: column;
+            `}
+          >
             <T id="listen_to_it" />
-            <audio controls={true} src={trackDetails.previewUrl}></audio>
-            <Clickable onClick={() => window.open(`${trackDetails.trackViewUrl}`)} textId="to_listen_full" />
+            <audio
+              controls={true}
+              src={trackDetails.previewUrl}
+              css={`
+                ${styles.margin.vertical(1)}
+              `}
+            ></audio>
+            <Clickable
+              onClick={() => window.open(`${trackDetails.trackViewUrl}`)}
+              textId="to_listen_full"
+              data-testid="click-link"
+            />
           </div>
         </ImageAudioSection>
         <Divider />
@@ -102,7 +139,44 @@ export function ITunesDetailContainer({ maxwidth, padding, dispatchGetTrackDetai
           <List.Item.Meta
             avatar={<Avatar src={trackDetails.artworkUrl60} style={{ marginTop: '5px' }} />}
             title={<ListTitleT id="primary_genre" />}
-            description={<StyledPara>{trackDetails.primaryGenreName}</StyledPara>}
+            description={
+              <Tag color="green-inverse">
+                <StyledPara>{trackDetails.primaryGenreName}</StyledPara>
+              </Tag>
+            }
+          />
+        </List.Item>
+        <List.Item>
+          <List.Item.Meta
+            avatar={<Avatar src={trackDetails.artworkUrl60} style={{ marginTop: '5px' }} />}
+            title={<ListTitleT id="collection_name" />}
+            description={<StyledPara>{trackDetails.collectionName}</StyledPara>}
+          />
+        </List.Item>
+        <List.Item>
+          <List.Item.Meta
+            avatar={<Avatar src={trackDetails.artworkUrl60} style={{ marginTop: '5px' }} />}
+            title={<ListTitleT id="track_duration" />}
+            description={
+              <StyledPara data-testid="parsed-value">
+                {millisToMinutesAndSeconds(trackDetails.trackTimeMillis || 0)}
+              </StyledPara>
+            }
+          />
+        </List.Item>
+        <List.Item>
+          <List.Item.Meta
+            avatar={<Avatar src={trackDetails.artworkUrl60} style={{ marginTop: '5px' }} />}
+            title={<ListTitleT id="track_explicitness" />}
+            // parse this too...
+            description={<StyledPara>{trackDetails.trackExplicitness}</StyledPara>}
+          />
+        </List.Item>
+        <List.Item>
+          <List.Item.Meta
+            avatar={<Avatar src={trackDetails.artworkUrl60} style={{ marginTop: '5px' }} />}
+            title={<ListTitleT id="year_of_release" />}
+            description={<StyledPara>{parseYearFromDateString(trackDetails?.releaseDate)}</StyledPara>}
           />
         </List.Item>
       </>
@@ -112,10 +186,10 @@ export function ITunesDetailContainer({ maxwidth, padding, dispatchGetTrackDetai
   return (
     <Container maxwidth={maxwidth} padding={padding}>
       <Row gutter={16}>
-        <Col xs={20} md={14}>
+        <Col xs={24} md={14}>
           {renderLeftCard()}
         </Col>
-        <Col xs={20} md={10}>
+        <Col xs={24} md={10}>
           <List itemLayout="horizontal" bordered={true}>
             {renderRightCard()}
           </List>
@@ -130,13 +204,21 @@ ITunesDetailContainer.propTypes = {
   padding: PropTypes.number,
   intl: PropTypes.object,
   trackDetails: PropTypes.object,
-  dispatchGetTrackDetails: PropTypes.func
+  dispatchGetTrackDetails: PropTypes.func,
+  dispatchClearTrackDetails: PropTypes.func
+};
+
+ITunesDetailContainer.defaultProps = {
+  trackDetails: {
+    releaseDate: ''
+  }
 };
 
 function mapDispatchToProps(dispatch) {
-  const { requestGetTrackDetails } = homeContainerCreators;
+  const { requestGetTrackDetails, clearTrackDetails } = homeContainerCreators;
   return {
-    dispatchGetTrackDetails: (lookUpId) => dispatch(requestGetTrackDetails(lookUpId))
+    dispatchGetTrackDetails: (lookUpId) => dispatch(requestGetTrackDetails(lookUpId)),
+    dispatchClearTrackDetails: () => dispatch(clearTrackDetails())
   };
 }
 
@@ -145,6 +227,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export const ITunesDetailTest = compose(injectIntl)(ITunesDetailContainer);
 
 export default compose(
   injectIntl,

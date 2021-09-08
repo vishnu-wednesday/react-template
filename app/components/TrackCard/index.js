@@ -44,14 +44,21 @@ const StyledCaption = styled.figcaption`
 export function TrackCard({ index, track, intl, loading }) {
   const getTrackOrCollection = (item) => {
     if (item.wrapperType === 'track') {
-      return item.trackName;
+      return {
+        name: item.trackName,
+        id: item.trackId
+      };
     }
-    return item.collectionName;
+    return {
+      name: item.collectionName,
+      id: item.collectionId
+    };
   };
+
   return (
     <>
       <If condition={!!track}>
-        <Link to={`/track/${track.trackId}`} key={index}>
+        <Link to={`/track/${getTrackOrCollection(track).id}`} key={index}>
           <Card key={index} data-testid="track-card">
             <Skeleton loading={loading} avatar active>
               <Meta
