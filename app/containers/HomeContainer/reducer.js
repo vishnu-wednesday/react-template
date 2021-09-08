@@ -15,11 +15,9 @@ export const { Types: homeContainerTypes, Creators: homeContainerCreators } = cr
   requestGetTrackDetails: ['lookUpId'],
   successGetTrackDetails: ['trackDetails'],
   failureGetTrackDetails: ['detailError'],
+  clearTrackDetails: [],
   clearTracks: []
 });
-
-// the data keys that becomes the props?
-export const initialState = { repoName: null, reposData: [], reposError: null };
 
 export const iTunesServiceInitialState = {
   searchTerm: null,
@@ -30,40 +28,41 @@ export const iTunesServiceInitialState = {
   trackDetailsError: null
 };
 
-export const homeContainerReducer = produce((draft, action) => {
-  switch (action.type) {
-    case homeContainerTypes.REQUEST_GET_TRACKS:
-      draft.searchTerm = action.searchTerm;
-      break;
+const homeContainerReducer = (state = iTunesServiceInitialState, action) =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case homeContainerTypes.REQUEST_GET_TRACKS:
+        draft.searchTerm = action.searchTerm;
+        break;
 
-    case homeContainerTypes.SUCCESS_GET_TRACKS:
-      draft.searchData = action.data;
-      break;
+      case homeContainerTypes.SUCCESS_GET_TRACKS:
+        draft.searchData = action.data;
+        break;
 
-    case homeContainerTypes.FAILURE_GET_TRACKS:
-      // handle error better
-      // ask about testing with translate..
-      draft.searchError = get(action.error, 'message', translate('something_went_wrong'));
-      break;
+      case homeContainerTypes.FAILURE_GET_TRACKS:
+        draft.searchError = get(action.error, 'message', translate('something_went_wrong'));
+        break;
 
-    case homeContainerTypes.REQUEST_GET_TRACK_DETAILS:
-      draft.lookUpId = action.lookUpId;
-      break;
+      case homeContainerTypes.REQUEST_GET_TRACK_DETAILS:
+        draft.lookUpId = action.lookUpId;
+        break;
 
-    case homeContainerTypes.SUCCESS_GET_TRACK_DETAILS:
-      draft.trackDetails = action.trackDetails;
-      break;
+      case homeContainerTypes.SUCCESS_GET_TRACK_DETAILS:
+        draft.trackDetails = action.trackDetails;
+        break;
 
-    case homeContainerTypes.FAILURE_GET_TRACK_DETAILS:
-      draft.trackDetailsError = get(action.detailError, 'message', translate('something_went_wrong'));
-      break;
+      case homeContainerTypes.FAILURE_GET_TRACK_DETAILS:
+        draft.trackDetailsError = get(action.detailError, 'message', translate('something_went_wrong'));
+        break;
 
-    case homeContainerTypes.CLEAR_TRACKS:
-      return iTunesServiceInitialState;
+      case homeContainerTypes.CLEAR_TRACK_DETAILS:
+        draft.trackDetails = {};
+        draft.lookUpId = null;
+        break;
 
-    default:
-      break;
-  }
-}, iTunesServiceInitialState);
+      case homeContainerTypes.CLEAR_TRACKS:
+        return iTunesServiceInitialState;
+    }
+  });
 
 export default homeContainerReducer;

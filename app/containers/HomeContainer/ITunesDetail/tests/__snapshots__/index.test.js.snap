@@ -1,0 +1,352 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ITunesDetails Container Tests should render and match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="ITunesDetail__Container-sc-1bok3w6-0 fGhvOg"
+    >
+      <div
+        class="ant-row"
+        style="margin-left: -8px; margin-right: -8px;"
+      >
+        <div
+          class="ant-col ant-col-xs-24 ant-col-md-14"
+          style="padding-left: 8px; padding-right: 8px;"
+        >
+          <div
+            class="ant-card ant-card-bordered ant-card-hoverable ITunesDetail__StyledCard-sc-1bok3w6-1 JLTFX"
+          >
+            <div
+              class="ant-card-body"
+            >
+              <section
+                class="ITunesDetail__ImageAudioSection-sc-1bok3w6-3 jXcwa-D"
+              >
+                <div
+                  class="ant-image"
+                  data-testid="album-image"
+                  style="width: 240px;"
+                >
+                  <img
+                    class="ant-image-img"
+                  />
+                  <div
+                    class="ant-image-mask"
+                  >
+                    <div
+                      class="ant-image-mask-info"
+                    >
+                      <span
+                        aria-label="eye"
+                        class="anticon anticon-eye"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="eye"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
+                      </span>
+                      Preview
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="sc-bdnxRM hAEZJt"
+                >
+                  <p
+                    class="T__StyledText-gjlic1-0 jbStwN"
+                    data-testid="t"
+                  >
+                    Play it!
+                  </p>
+                  <audio
+                    class="sc-gtsrHT buJEBB"
+                    controls=""
+                  />
+                  <div
+                    class="Clickable__StyledClickable-sc-19lp5om-0 grlVIv"
+                    data-testid="clickable"
+                  >
+                    <p
+                      class="T__StyledText-gjlic1-0 jbStwN"
+                      data-testid="t"
+                    >
+                      Click here to go to Apple Music store
+                    </p>
+                  </div>
+                </div>
+              </section>
+              <div
+                class="ant-divider ant-divider-horizontal"
+                role="separator"
+              />
+              <section
+                class="ITunesDetail__StyledSection-sc-1bok3w6-2"
+              >
+                <p
+                  class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__HeadingT-sc-1bok3w6-4 eiwRUw"
+                  data-testid="t"
+                >
+                  
+                </p>
+                <p
+                  class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__StyleT-sc-1bok3w6-5 jvNQIL"
+                  data-testid="t"
+                >
+                  
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-xs-24 ant-col-md-10"
+          style="padding-left: 8px; padding-right: 8px;"
+        >
+          <div
+            class="ant-list ant-list-split ant-list-bordered"
+          >
+            <div
+              class="ant-spin-nested-loading"
+            >
+              <div
+                class="ant-spin-container"
+              >
+                <li
+                  class="ant-list-item"
+                >
+                  <div
+                    class="ant-list-item-meta"
+                  >
+                    <div
+                      class="ant-list-item-meta-avatar"
+                    >
+                      <span
+                        class="ant-avatar ant-avatar-circle"
+                        style="margin-top: 5px;"
+                      >
+                        <span
+                          class="ant-avatar-string"
+                          style="opacity: 0;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="ant-list-item-meta-content"
+                    >
+                      <h4
+                        class="ant-list-item-meta-title"
+                      >
+                        <p
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          data-testid="t"
+                        >
+                          Primary Genre:
+                        </p>
+                      </h4>
+                      <div
+                        class="ant-list-item-meta-description"
+                      >
+                        <span
+                          class="ant-tag ant-tag-green-inverse"
+                        >
+                          <p
+                            class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="ant-list-item"
+                >
+                  <div
+                    class="ant-list-item-meta"
+                  >
+                    <div
+                      class="ant-list-item-meta-avatar"
+                    >
+                      <span
+                        class="ant-avatar ant-avatar-circle"
+                        style="margin-top: 5px;"
+                      >
+                        <span
+                          class="ant-avatar-string"
+                          style="opacity: 0;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="ant-list-item-meta-content"
+                    >
+                      <h4
+                        class="ant-list-item-meta-title"
+                      >
+                        <p
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          data-testid="t"
+                        >
+                          Collection Name:
+                        </p>
+                      </h4>
+                      <div
+                        class="ant-list-item-meta-description"
+                      >
+                        <p
+                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="ant-list-item"
+                >
+                  <div
+                    class="ant-list-item-meta"
+                  >
+                    <div
+                      class="ant-list-item-meta-avatar"
+                    >
+                      <span
+                        class="ant-avatar ant-avatar-circle"
+                        style="margin-top: 5px;"
+                      >
+                        <span
+                          class="ant-avatar-string"
+                          style="opacity: 0;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="ant-list-item-meta-content"
+                    >
+                      <h4
+                        class="ant-list-item-meta-title"
+                      >
+                        <p
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          data-testid="t"
+                        >
+                          Track Duration:
+                        </p>
+                      </h4>
+                      <div
+                        class="ant-list-item-meta-description"
+                      >
+                        <p
+                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                          data-testid="parsed-value"
+                        >
+                          0:00
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="ant-list-item"
+                >
+                  <div
+                    class="ant-list-item-meta"
+                  >
+                    <div
+                      class="ant-list-item-meta-avatar"
+                    >
+                      <span
+                        class="ant-avatar ant-avatar-circle"
+                        style="margin-top: 5px;"
+                      >
+                        <span
+                          class="ant-avatar-string"
+                          style="opacity: 0;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="ant-list-item-meta-content"
+                    >
+                      <h4
+                        class="ant-list-item-meta-title"
+                      >
+                        <p
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          data-testid="t"
+                        >
+                          Track Explicit:
+                        </p>
+                      </h4>
+                      <div
+                        class="ant-list-item-meta-description"
+                      >
+                        <p
+                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="ant-list-item"
+                >
+                  <div
+                    class="ant-list-item-meta"
+                  >
+                    <div
+                      class="ant-list-item-meta-avatar"
+                    >
+                      <span
+                        class="ant-avatar ant-avatar-circle"
+                        style="margin-top: 5px;"
+                      >
+                        <span
+                          class="ant-avatar-string"
+                          style="opacity: 0;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="ant-list-item-meta-content"
+                    >
+                      <h4
+                        class="ant-list-item-meta-title"
+                      >
+                        <p
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          data-testid="t"
+                        >
+                          Year of Release:
+                        </p>
+                      </h4>
+                      <div
+                        class="ant-list-item-meta-description"
+                      >
+                        <p
+                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                        >
+                          NaN
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { browserHistory, BrowserRouter } from 'react-router-dom';
+import { browserHistory, BrowserRouter, Router, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
@@ -9,6 +9,7 @@ import configureStore from '@app/configureStore';
 import { DEFAULT_LOCALE, translationMessages } from '@app/i18n';
 import ConnectedLanguageProvider from '@containers/LanguageProvider';
 import { IntlGlobalProvider } from '@components/IntlGlobalProvider';
+import { createMemoryHistory } from 'history';
 
 export const renderWithIntl = (children) =>
   render(
@@ -43,6 +44,22 @@ export const renderProvider = (children) => {
     </Provider>
   );
 };
+
+export function renderWithRouterMatch(
+  ui,
+  { path = '/', route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {}
+) {
+  return {
+    ...render(
+      <IntlProvider locale={DEFAULT_LOCALE} messages={translationMessages[DEFAULT_LOCALE]}>
+        <Router history={history}>
+          <Route path={path}>{ui}</Route>
+        </Router>
+      </IntlProvider>
+    )
+  };
+}
+
 export const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export const apiResponseGenerator = (ok, data) => ({
   ok,
