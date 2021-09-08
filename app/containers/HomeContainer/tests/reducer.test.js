@@ -1,7 +1,7 @@
 import { translate } from '@app/components/IntlGlobalProvider/index';
 import { createIntlUtil } from '@app/utils/testUtils';
 import { setIntl } from '@components/IntlGlobalProvider';
-import { homeContainerReducer, iTunesServiceInitialState, homeContainerTypes } from '../reducer';
+import homeContainerReducer, { iTunesServiceInitialState, homeContainerTypes } from '../reducer';
 
 /* eslint-disable default-case, no-param-reassign */
 describe('HomContainer reducer tests', () => {
@@ -106,5 +106,19 @@ describe('ITunesDetails Specific Reducer Tests', () => {
         error
       })
     ).toEqual(expectedResult);
+  });
+
+  it('should clear the trackDetails on CLEAR_TRACK_DETAILS', () => {
+    state = {
+      trackDetails: {
+        songDetails: '123'
+      },
+      ...state
+    };
+    expect(
+      homeContainerReducer(state, {
+        type: homeContainerTypes.CLEAR_TRACK_DETAILS
+      })
+    ).toEqual(iTunesServiceInitialState);
   });
 });

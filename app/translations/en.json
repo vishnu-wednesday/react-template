@@ -13,6 +13,10 @@
   "listen_to_it": "Play it!",
   "to_listen_full": "Click here to go to Apple Music store",
   "primary_genre": "Primary Genre:",
+  "collection_name": "Collection Name:",
+  "track_explicitness": "Track Explicit:",
+  "year_of_release": "Year of Release:",
+  "track_duration": "Track Duration:",
   "wednesday_solutions": "Wednesday Solutions",
   "audio_no_support": "Your browser doesn't support <code>audio</code> HTML element"
 }
