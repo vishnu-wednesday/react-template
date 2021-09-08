@@ -65,7 +65,6 @@ describe('ITunes get track details saga tests', () => {
 
   it('should ensure that SUCCESS_GET_TRACK_DETAILS is dispatched is api succeeds', () => {
     const res = getItunesTrackDetailsGenerator.next().value;
-    // eslint-disable-next-line no-console
     expect(res).toEqual(call(lookUpTrackDetails, lookUpId));
     const trackDetailResponse = {
       resultCount: 1,
@@ -85,7 +84,6 @@ describe('ITunes get track details saga tests', () => {
 
   it('should ensure that FAILURE_GET_TRACK_DETAILS is dispatched on failure', () => {
     const res = getItunesTrackDetailsGenerator.next().value;
-    // eslint-disable-next-line no-console
     expect(res).toEqual(call(lookUpTrackDetails, lookUpId));
     const errorResponse = {
       message: 'something_went_wrong'
