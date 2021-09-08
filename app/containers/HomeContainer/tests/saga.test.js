@@ -3,11 +3,13 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { takeLatest, call, put } from 'redux-saga/effects';
-import { getTracks, lookUpTrackDetails } from '@services/repoApi';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { getTracks } from '@services/repoApi';
 import { apiResponseGenerator } from '@utils/testUtils';
 import homeContainerSaga, { getItunesResults, getTrackDetails, trackDetailsSaga } from '../saga';
 import { homeContainerTypes } from '../reducer';
+import { selectSearchData } from '../selectors';
+// import { selectSearchData, selectTrackDetails } from '../selectors';
 
 describe('HomeContainer saga tests', () => {
   const generator = homeContainerSaga();
@@ -55,7 +57,7 @@ describe('ITunes get track details saga tests', () => {
   let lookUpId;
   beforeEach(() => {
     generator = trackDetailsSaga();
-    lookUpId = 123456;
+    lookUpId = '123456';
     getItunesTrackDetailsGenerator = getTrackDetails({ type: 'TEST', lookUpId });
   });
 
@@ -65,7 +67,9 @@ describe('ITunes get track details saga tests', () => {
 
   it('should ensure that SUCCESS_GET_TRACK_DETAILS is dispatched is api succeeds', () => {
     const res = getItunesTrackDetailsGenerator.next().value;
-    expect(res).toEqual(call(lookUpTrackDetails, lookUpId));
+    const val = select(selectSearchData());
+    expect(JSON.stringify(res)).toEqual(JSON.stringify(val));
+
     const trackDetailResponse = {
       resultCount: 1,
       results: [
@@ -74,17 +78,20 @@ describe('ITunes get track details saga tests', () => {
         }
       ]
     };
+    getItunesTrackDetailsGenerator.next();
     expect(getItunesTrackDetailsGenerator.next(apiResponseGenerator(true, trackDetailResponse)).value).toEqual(
       put({
         type: homeContainerTypes.SUCCESS_GET_TRACK_DETAILS,
-        trackDetails: trackDetailResponse
+        // remember we return the first value of the array..
+        trackDetails: trackDetailResponse.results[0]
       })
     );
   });
 
   it('should ensure that FAILURE_GET_TRACK_DETAILS is dispatched on failure', () => {
-    const res = getItunesTrackDetailsGenerator.next().value;
-    expect(res).toEqual(call(lookUpTrackDetails, lookUpId));
+    getItunesTrackDetailsGenerator.next();
+    getItunesTrackDetailsGenerator.next();
+    // jump two yields
     const errorResponse = {
       message: 'something_went_wrong'
     };
@@ -92,6 +99,28 @@ describe('ITunes get track details saga tests', () => {
       put({
         type: homeContainerTypes.FAILURE_GET_TRACK_DETAILS,
         detailError: errorResponse
+      })
+    );
+  });
+
+  it('should find the track of interest', () => {
+    getItunesTrackDetailsGenerator.next();
+    expect(
+      getItunesTrackDetailsGenerator.next({
+        results: [
+          {
+            trackId: 123456,
+            detail: 'test'
+          }
+        ]
+      }).value
+    ).toEqual(
+      put({
+        type: homeContainerTypes.SUCCESS_GET_TRACK_DETAILS,
+        trackDetails: {
+          trackId: 123456,
+          detail: 'test'
+        }
       })
     );
   });
