@@ -1,3 +1,4 @@
+import { translate } from '@app/components/IntlGlobalProvider/index';
 import { createIntlUtil } from '@app/utils/testUtils';
 import { setIntl } from '@components/IntlGlobalProvider';
 import { homeContainerReducer, iTunesServiceInitialState, homeContainerTypes } from '../reducer';
@@ -47,6 +48,61 @@ describe('HomContainer reducer tests', () => {
     expect(
       homeContainerReducer(state, {
         type: homeContainerTypes.FAILURE_GET_TRACKS,
+        error
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should return initialState when CLEAR_TRACKS is dispactched', () => {
+    state = {
+      ...state,
+      searchData: { result: 'rihana' }
+    };
+    expect(
+      homeContainerReducer(state, {
+        type: homeContainerTypes.CLEAR_TRACKS
+      })
+    ).toEqual(iTunesServiceInitialState);
+  });
+});
+
+describe('ITunesDetails Specific Reducer Tests', () => {
+  let state;
+  beforeEach(() => {
+    state = iTunesServiceInitialState;
+  });
+
+  it('should return the initial state when an action of type REQUEST_GET_TRACK_DETAILS is dispatched', () => {
+    const lookUpId = '123456';
+    const expectedResult = { ...state, lookUpId };
+    expect(
+      homeContainerReducer(state, {
+        type: homeContainerTypes.REQUEST_GET_TRACK_DETAILS,
+        lookUpId
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should return the track detail data after SUCCESS_GET_TRACK_DETAILS is dispatched', () => {
+    const data = {
+      songData: 123
+    };
+    const expectedResult = { ...state, trackDetails: data };
+    expect(
+      homeContainerReducer(state, {
+        type: homeContainerTypes.SUCCESS_GET_TRACK_DETAILS,
+        data
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should return an error after FAILURE_GET_TRACK_DETAILS is dispatched', () => {
+    setIntl(createIntlUtil());
+    const error = translate('something_went_wrong');
+    const expectedResult = { ...state, trackDetailsError: error };
+    expect(
+      homeContainerReducer(state, {
+        type: homeContainerTypes.FAILURE_GET_TRACK_DETAILS,
         error
       })
     ).toEqual(expectedResult);
