@@ -8,7 +8,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
-    startegy
+    startegy:
       matrix: 
         node-version: [14.x]
     
