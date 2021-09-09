@@ -1,3 +1,5 @@
+import { createIntlUtil } from '@app/utils/testUtils';
+import { setIntl } from '@components/IntlGlobalProvider';
 import { homeContainerReducer, iTunesServiceInitialState, homeContainerTypes } from '../reducer';
 
 /* eslint-disable default-case, no-param-reassign */
@@ -34,9 +36,14 @@ describe('HomContainer reducer tests', () => {
   });
 
   it('should ensure that the an error message is shown and loading = false when FAILURE_GET_TRACKS is dispatched', () => {
-    const error = 'something_went_wrong';
-    const expectedResult = { ...state, searchError: error };
-    // eslint-disable-next-line no-console
+    setIntl(createIntlUtil());
+    const error = {
+      message: 'something_went_wrong'
+    };
+    const expectedResult = {
+      ...state,
+      searchError: 'something_went_wrong'
+    };
     expect(
       homeContainerReducer(state, {
         type: homeContainerTypes.FAILURE_GET_TRACKS,

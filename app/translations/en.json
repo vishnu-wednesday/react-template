@@ -7,10 +7,10 @@
   "matching_results": "Results found: {totalCount}",
   "something_went_wrong": "Sorry. Something went wrong! Please try again in sometime.",
   "stories": "Go to Storybook",
-  "artist_name": "Artist Name: {artistName}",
-  "second_value": "Track Name/Collection : {value}",
+  "artist_name": "{artistName}",
+  "track_or_collection": "{value}",
   "track_audiobook": "Track Or AudioBook: {trackOrAudioBook}",
-  "listen_to_it": "Listen to it!",
+  "listen_to_it": "Play it!",
   "wednesday_solutions": "Wednesday Solutions",
   "audio_no_support": "Your browser doesn't support <code>audio</code> HTML element"
 }

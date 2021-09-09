@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TrackCard /> should render and match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="ant-card ant-card-bordered"
+      data-testid="track-card"
+    >
+      <div
+        class="ant-card-body"
+      >
+        <div
+          class="ant-card-meta"
+        >
+          <div
+            class="ant-card-meta-avatar"
+          >
+            <span
+              class="ant-avatar ant-avatar-circle"
+            >
+              <span
+                class="ant-avatar-string"
+                style="opacity: 0;"
+              />
+            </span>
+          </div>
+          <div
+            class="ant-card-meta-detail"
+          >
+            <div
+              class="ant-card-meta-description"
+            >
+              <div>
+                <p
+                  class="T__StyledText-gjlic1-0 bxtGdb TrackCard__AlbumNameT-sc-10bk196-2 hhggcZ"
+                  data-testid="track_or_collection"
+                >
+                  
+                </p>
+                <p
+                  class="T__StyledText-gjlic1-0 bxtGdb TrackCard__StyleT-sc-10bk196-1 hZFoBe"
+                  data-testid="t"
+                >
+                  
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figure>
+          <figcaption
+            class="TrackCard__StyledCaption-sc-10bk196-3 jhwGow"
+          >
+            Play it!
+          </figcaption>
+          <audio
+            class="TrackCard__Audio-sc-10bk196-0 ipQWAE"
+            controls=""
+            data-testid="audio-player"
+          >
+            <p
+              class="T__StyledText-gjlic1-0 jbStwN"
+              data-testid="t"
+            >
+              Your browser doesn't support 
+              <code>
+                audio
+              </code>
+               HTML element
+            </p>
+          </audio>
+        </figure>
+      </div>
+    </div>
+  </div>
+</body>
+`;

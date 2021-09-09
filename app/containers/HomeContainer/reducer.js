@@ -32,6 +32,7 @@ export const homeContainerReducer = produce((draft, action) => {
 
     case homeContainerTypes.FAILURE_GET_TRACKS:
       // handle error better
+      // ask about testing with translate..
       draft.searchError = get(action.error, 'message', translate('something_went_wrong'));
       break;
 

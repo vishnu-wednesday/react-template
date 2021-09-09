@@ -1,9 +1,10 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
+
 import configureStore from '@app/configureStore';
 import { DEFAULT_LOCALE, translationMessages } from '@app/i18n';
 import ConnectedLanguageProvider from '@containers/LanguageProvider';
@@ -45,3 +46,16 @@ export const apiResponseGenerator = (ok, data) => ({
   ok,
   data
 });
+
+export const createIntlUtil = (locale = DEFAULT_LOCALE) => {
+  const cache = createIntlCache();
+  const getMessages = (locale) => translationMessages[locale];
+
+  return createIntl(
+    {
+      locale: locale,
+      messages: getMessages(locale)
+    },
+    cache
+  );
+};

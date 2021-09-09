@@ -20,7 +20,8 @@ module.exports = {
     'react/display-name': 0,
     curly: ['error', 'all'],
     'no-console': ['error', { allow: ['error'] }],
-    'prettier/prettier': ['error', prettierOptions]
+    'prettier/prettier': ['error', prettierOptions],
+    'no-else-return': ['error']
   },
   globals: {
     GLOBAL: false,
