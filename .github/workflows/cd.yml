@@ -2,7 +2,9 @@ name: ITunes Search CD
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+      - feat/ci-cd-testing
 
 jobs:
   build-deploy:
