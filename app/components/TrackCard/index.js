@@ -74,18 +74,28 @@ export function TrackCard({ index, track, intl, loading }) {
                     }}
                     src={track.artworkUrl100}
                   />
-                  <StyleT id="artist_name" values={{ artistName: track.artistName }} clearFloat={true} />
-                </div>
-              }
-            />
-            <figure>
-              <StyledCaption>{intl.formatMessage({ id: 'listen_to_it' })}</StyledCaption>
-              <Audio controls src={track.previewUrl} data-testid="audio-player">
-                <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
-              </Audio>
-            </figure>
-          </Skeleton>
-        </Card>
+                }
+                description={
+                  <div>
+                    <AlbumNameT
+                      id="track_or_collection"
+                      values={{ value: getTrackOrCollection(track).name }}
+                      clearFloat={true}
+                      data-testid="track_or_collection"
+                    />
+                    <StyleT id="artist_name" values={{ artistName: track.artistName }} clearFloat={true} />
+                  </div>
+                }
+              />
+              <figure>
+                <StyledCaption>{intl.formatMessage({ id: 'listen_to_it' })}</StyledCaption>
+                <Audio controls src={track.previewUrl} data-testid="audio-player">
+                  <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
+                </Audio>
+              </figure>
+            </Skeleton>
+          </Card>
+        </Link>
       </If>
     </>
   );
