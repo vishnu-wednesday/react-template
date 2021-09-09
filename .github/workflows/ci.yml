@@ -13,23 +13,26 @@ jobs:
         node-version: [10.x, 12.x, 14.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        
       - name: Use Node.JS ${{matrix.node-version}}
         uses: actions/setup-node@v2
         with:
           node-version: ${{matrix.node-version}}
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Install Deps
-        runs: yarn install
+        run: yarn install
 
       - name: Lint
-        runs: yarn lint
+        run: yarn lint
 
       - name: Test
-        runs: yarn test
+        run: yarn test
 
       - name: Build
-        runs: yarn build
+        run: yarn build
