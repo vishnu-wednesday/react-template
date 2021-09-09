@@ -81,7 +81,7 @@ export function TrackCard({ index, track, intl, loading }) {
             />
             <figure>
               <StyledCaption>{intl.formatMessage({ id: 'listen_to_it' })}</StyledCaption>
-              <Audio controls src={track.previewUrl}>
+              <Audio controls src={track.previewUrl} data-testid="audio-player">
                 <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
               </Audio>
             </figure>

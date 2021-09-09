@@ -57,6 +57,7 @@ exports[`<TrackCard /> should render and match the snapshot 1`] = `
           <audio
             class="TrackCard__Audio-sc-10bk196-0 ipQWAE"
             controls=""
+            data-testid="audio-player"
           >
             <p
               class="T__StyledText-gjlic1-0 jbStwN"

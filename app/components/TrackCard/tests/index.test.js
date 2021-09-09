@@ -32,4 +32,10 @@ describe('<TrackCard />', () => {
     expect(queryByText(mockData.results[1].trackName)).toBeNull();
     expect(queryByText(mockData.results[1].collectionName)).toBeDefined();
   });
+
+  it('should show an audioplayer with src of previewUrl', () => {
+    const { getByTestId } = renderWithIntl(<TrackCard track={mockData.results[0]} />);
+    expect(getByTestId('audio-player')).toBeInTheDocument();
+    expect(getByTestId('audio-player').src).toEqual(mockData.results[0].previewUrl);
+  });
 });
