@@ -6,5 +6,9 @@ export default {
       padding: 20
     },
     exact: true
+  },
+  uatRoute: {
+    route: '/uat-test',
+    exact: true
   }
 };
