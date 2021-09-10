@@ -3,7 +3,6 @@
  * HomeContainer reducer
  *
  */
-import { translate } from '@app/components/IntlGlobalProvider/index';
 import produce from 'immer';
 import { get } from 'lodash';
 import { createActions } from 'reduxsauce';
@@ -40,7 +39,8 @@ const homeContainerReducer = (state = iTunesServiceInitialState, action) =>
         break;
 
       case homeContainerTypes.FAILURE_GET_TRACKS:
-        draft.searchError = get(action.error, 'message', translate('something_went_wrong'));
+        draft.searchData = {};
+        draft.searchError = get(action.error, 'message', 'something_went_wrong');
         break;
 
       case homeContainerTypes.REQUEST_GET_TRACK_DETAILS:
@@ -52,7 +52,8 @@ const homeContainerReducer = (state = iTunesServiceInitialState, action) =>
         break;
 
       case homeContainerTypes.FAILURE_GET_TRACK_DETAILS:
-        draft.trackDetailsError = get(action.detailError, 'message', translate('something_went_wrong'));
+        draft.trackDetails = {};
+        draft.trackDetailsError = get(action.detailError, 'message', 'something_went_wrong');
         break;
 
       case homeContainerTypes.CLEAR_TRACK_DETAILS:
