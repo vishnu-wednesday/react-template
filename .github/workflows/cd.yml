@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix: 
+      matrix:
         node-version: [14.x]
-    
-    steps: 
+
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Use Node.JS ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
         id: extract_branch
 
       - name: Configure AWS credentials
@@ -42,4 +42,3 @@ jobs:
 
       - name: Deploy
         run: aws s3 sync ./build s3://itunessearch-demo/${{steps.extract_branch.outputs.branch}}
-
