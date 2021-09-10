@@ -1,4 +1,3 @@
-import { translate } from '@app/components/IntlGlobalProvider/index';
 import { createIntlUtil } from '@app/utils/testUtils';
 import { setIntl } from '@components/IntlGlobalProvider';
 import homeContainerReducer, { iTunesServiceInitialState, homeContainerTypes } from '../reducer';
@@ -98,8 +97,10 @@ describe('ITunesDetails Specific Reducer Tests', () => {
 
   it('should return an error after FAILURE_GET_TRACK_DETAILS is dispatched', () => {
     setIntl(createIntlUtil());
-    const error = translate('something_went_wrong');
-    const expectedResult = { ...state, trackDetailsError: error };
+    const error = {
+      message: 'something_went_wrong'
+    };
+    const expectedResult = { ...state, trackDetailsError: error.message };
     expect(
       homeContainerReducer(state, {
         type: homeContainerTypes.FAILURE_GET_TRACK_DETAILS,
