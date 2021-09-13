@@ -5,9 +5,11 @@
  *
  */
 
-import React from 'react';
+import React, { Suspense } from 'react';
+
 import { timeout, renderWithRouterMatch } from '@utils/testUtils';
 import { ITunesDetailTest as ITunesDetailContainer } from '../index';
+import ITunesDetailContainerLazily from '../Loadable';
 
 describe('<ITunesDetails Container Tests', () => {
   let submitSpy;
@@ -17,6 +19,24 @@ describe('<ITunesDetails Container Tests', () => {
     submitSpy = jest.fn();
     clearSpy = jest.fn();
   });
+
+  /* 
+   This does test the loadable file. Very weird though.
+  */
+
+  it('should render with loadable', async () => {
+    const { baseElement } = await renderWithRouterMatch(
+      <Suspense>
+        <ITunesDetailContainerLazily dispatchGetTrackDetails={submitSpy} dispatchClearTrackDetails={clearSpy} />
+      </Suspense>,
+      {
+        route: '/track/123',
+        path: '/track/:id'
+      }
+    );
+    expect(baseElement).toBeDefined();
+  });
+
   it('should render and match the snapshot', () => {
     const { baseElement } = renderWithRouterMatch(
       <ITunesDetailContainer dispatchGetTrackDetails={submitSpy} dispatchClearTrackDetails={clearSpy} />,

@@ -1,10 +1,10 @@
 import { put, call, takeLatest, select } from 'redux-saga/effects';
 import { getTracks, lookUpTrackDetails } from '@services/repoApi';
-import { homeContainerTypes, homeContainerCreators } from './reducer';
+import { iTunesContainerTypes, iTunesCreators } from './reducer';
 import { selectSearchData } from './selectors';
 
-const { REQUEST_GET_TRACKS, REQUEST_GET_TRACK_DETAILS } = homeContainerTypes;
-const { successGetTracks, failureGetTracks, successGetTrackDetails, failureGetTrackDetails } = homeContainerCreators;
+const { REQUEST_GET_TRACKS, REQUEST_GET_TRACK_DETAILS } = iTunesContainerTypes;
+const { successGetTracks, failureGetTracks, successGetTrackDetails, failureGetTrackDetails } = iTunesCreators;
 
 export function* getItunesResults(action) {
   const response = yield call(getTracks, action.searchTerm);
@@ -33,7 +33,7 @@ export function* getTrackDetails(action) {
 }
 
 // Individual exports for testing
-export default function* homeContainerSaga() {
+export default function* iTunesSearchSaga() {
   yield takeLatest(REQUEST_GET_TRACKS, getItunesResults);
 }
 

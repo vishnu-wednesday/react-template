@@ -1,5 +1,5 @@
 import {
-  selectHomeContainer,
+  selectITunesContainer,
   selectSearchData,
   selectSearchError,
   selectSearchTerm,
@@ -29,7 +29,7 @@ describe('HomeContainer selector tests', () => {
     };
   });
   it('should select the homeContainer state', () => {
-    expect(selectHomeContainer(mockedState)).toEqual(mockedState.homeContainer);
+    expect(selectITunesContainer(mockedState)).toEqual(mockedState.homeContainer);
   });
   it('should select the searchTerm', () => {
     const repoSelector = selectSearchTerm();

@@ -7,7 +7,7 @@ import produce from 'immer';
 import { get } from 'lodash';
 import { createActions } from 'reduxsauce';
 
-export const { Types: homeContainerTypes, Creators: homeContainerCreators } = createActions({
+export const { Types: iTunesContainerTypes, Creators: iTunesCreators } = createActions({
   requestGetTracks: ['searchTerm'],
   successGetTracks: ['data'],
   failureGetTracks: ['error'],
@@ -27,43 +27,43 @@ export const iTunesServiceInitialState = {
   trackDetailsError: null
 };
 
-const homeContainerReducer = (state = iTunesServiceInitialState, action) =>
+const iTunesContainerReducer = (state = iTunesServiceInitialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case homeContainerTypes.REQUEST_GET_TRACKS:
+      case iTunesContainerTypes.REQUEST_GET_TRACKS:
         draft.searchTerm = action.searchTerm;
         break;
 
-      case homeContainerTypes.SUCCESS_GET_TRACKS:
+      case iTunesContainerTypes.SUCCESS_GET_TRACKS:
         draft.searchData = action.data;
         break;
 
-      case homeContainerTypes.FAILURE_GET_TRACKS:
+      case iTunesContainerTypes.FAILURE_GET_TRACKS:
         draft.searchData = {};
         draft.searchError = get(action.error, 'message', 'something_went_wrong');
         break;
 
-      case homeContainerTypes.REQUEST_GET_TRACK_DETAILS:
+      case iTunesContainerTypes.REQUEST_GET_TRACK_DETAILS:
         draft.lookUpId = action.lookUpId;
         break;
 
-      case homeContainerTypes.SUCCESS_GET_TRACK_DETAILS:
+      case iTunesContainerTypes.SUCCESS_GET_TRACK_DETAILS:
         draft.trackDetails = action.trackDetails;
         break;
 
-      case homeContainerTypes.FAILURE_GET_TRACK_DETAILS:
+      case iTunesContainerTypes.FAILURE_GET_TRACK_DETAILS:
         draft.trackDetails = {};
         draft.trackDetailsError = get(action.detailError, 'message', 'something_went_wrong');
         break;
 
-      case homeContainerTypes.CLEAR_TRACK_DETAILS:
+      case iTunesContainerTypes.CLEAR_TRACK_DETAILS:
         draft.trackDetails = {};
         draft.lookUpId = null;
         break;
 
-      case homeContainerTypes.CLEAR_TRACKS:
+      case iTunesContainerTypes.CLEAR_TRACKS:
         return iTunesServiceInitialState;
     }
   });
 
-export default homeContainerReducer;
+export default iTunesContainerReducer;

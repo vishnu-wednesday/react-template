@@ -13,9 +13,9 @@ import { useHistory } from 'react-router-dom';
 import T from '@components/T';
 import Clickable from '@components/Clickable';
 import { injectSaga } from 'redux-injectors';
-import { selectHomeContainer, selectSearchData, selectSearchError, selectSearchTerm } from '../selectors';
-import { homeContainerCreators } from '../reducer';
-import homeContainerSaga from '../saga';
+import selectITunesContainer, { selectSearchData, selectSearchError, selectSearchTerm } from '../selectors';
+import { iTunesCreators } from '../reducer';
+import iTunesSearchSaga from '../saga';
 import For from '@components/For';
 import TrackCard from '@components/TrackCard';
 import If from '@components/If';
@@ -49,7 +49,7 @@ const RightContent = styled.div`
 const StyledDiv = styled.div`
   ${styles.margin.bottom(1)}
 `;
-export function HomeContainer({
+export function ITunesGridContainer({
   dispatchItunesSearch,
   dispatchClearItunesSearch,
   intl,
@@ -165,7 +165,7 @@ export function HomeContainer({
   );
 }
 
-HomeContainer.propTypes = {
+ITunesGridContainer.propTypes = {
   dispatchItunesSearch: PropTypes.func,
   dispatchClearItunesSearch: PropTypes.func,
   intl: PropTypes.object,
@@ -180,20 +180,20 @@ HomeContainer.propTypes = {
   padding: PropTypes.number
 };
 
-HomeContainer.defaultProps = {
+ITunesGridContainer.defaultProps = {
   maxwidth: 500,
   padding: 20
 };
 
 const mapStateToProps = createStructuredSelector({
-  homeContainer: selectHomeContainer,
+  homeContainer: selectITunesContainer,
   itunesSearchData: selectSearchData(),
   itunesSearchError: selectSearchError(),
   itunesSearchTerm: selectSearchTerm()
 });
 
 function mapDispatchToProps(dispatch) {
-  const { requestGetTracks, clearTracks } = homeContainerCreators;
+  const { requestGetTracks, clearTracks } = iTunesCreators;
   return {
     dispatchItunesSearch: (searchTerm) => dispatch(requestGetTracks(searchTerm)),
     dispatchClearItunesSearch: () => dispatch(clearTracks())
@@ -206,7 +206,7 @@ export default compose(
   injectIntl,
   withConnect,
   memo,
-  injectSaga({ key: 'homeContainer', saga: homeContainerSaga })
-)(HomeContainer);
+  injectSaga({ key: 'itunesContainer', saga: iTunesSearchSaga })
+)(ITunesGridContainer);
 
-export const HomeContainerTest = compose(injectIntl)(HomeContainer);
+export const ItunesGridTest = compose(injectIntl)(ITunesGridContainer);

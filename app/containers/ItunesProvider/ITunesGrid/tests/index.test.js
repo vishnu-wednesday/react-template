@@ -5,18 +5,19 @@
  */
 
 import React from 'react';
-import { timeout, renderProvider } from '@utils/testUtils';
+import { timeout, renderProvider, createIntlUtil } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
-import { HomeContainerTest as HomeContainer } from '../index';
+import { ItunesGridTest as ITunesGridContainer } from '../index';
+import { setIntl, translate } from '@app/components/IntlGlobalProvider/index';
 
-describe('<HomeContainer /> tests', () => {
+describe('<ITunesGridContainer /> tests', () => {
   let submitSpy;
 
   beforeEach(() => {
     submitSpy = jest.fn();
   });
   it('should render and match the snapshot', () => {
-    const { baseElement } = renderProvider(<HomeContainer dispatchItunesSearch={submitSpy} />);
+    const { baseElement } = renderProvider(<ITunesGridContainer dispatchItunesSearch={submitSpy} />);
     expect(baseElement).toMatchSnapshot();
   });
 
@@ -24,7 +25,7 @@ describe('<HomeContainer /> tests', () => {
     const getItunesSearchSpy = jest.fn();
     const clearItunesSearchSpy = jest.fn();
     const { getByTestId } = renderProvider(
-      <HomeContainer dispatchClearItunesSearch={clearItunesSearchSpy} dispatchItunesSearch={getItunesSearchSpy} />
+      <ITunesGridContainer dispatchClearItunesSearch={clearItunesSearchSpy} dispatchItunesSearch={getItunesSearchSpy} />
     );
     // renderProvider renders the tree. It wires up everything and renders the children you pass it in.
     // note that it uses the react testing library render function.
@@ -42,7 +43,7 @@ describe('<HomeContainer /> tests', () => {
   });
 
   it('should call dispatchItunesSearch on change', async () => {
-    const { getByTestId } = renderProvider(<HomeContainer dispatchItunesSearch={submitSpy} />);
+    const { getByTestId } = renderProvider(<ITunesGridContainer dispatchItunesSearch={submitSpy} />);
     fireEvent.change(getByTestId('search-bar'), {
       target: { value: 'rihana' }
     });
@@ -52,7 +53,7 @@ describe('<HomeContainer /> tests', () => {
 
   it('should call dispatchItunesSearch when a search term is present and data is empty', async () => {
     const { getByTestId } = renderProvider(
-      <HomeContainer
+      <ITunesGridContainer
         dispatchItunesSearch={submitSpy}
         itunesSearchTerm="rihana"
         itunesSearchData={{
@@ -63,5 +64,33 @@ describe('<HomeContainer /> tests', () => {
     getByTestId('search-bar').value = 'rihana';
     await timeout(500);
     expect(submitSpy).toBeCalled();
+  });
+
+  it('should render the error container when itunessearcherror is present', () => {
+    const { queryByText } = renderProvider(
+      <ITunesGridContainer
+        dispatchItunesSearch={submitSpy}
+        itunesSearchTerm="rihana"
+        itunesSearchError="something_went_wrong"
+      />
+    );
+    let mockIntl = createIntlUtil();
+    setIntl(mockIntl);
+    expect(queryByText(translate('something_went_wrong'))).toBeInTheDocument();
+  });
+
+  it('should render the error container when itunessearcherror is present with no results text', () => {
+    const { queryByText } = renderProvider(
+      <ITunesGridContainer
+        dispatchItunesSearch={submitSpy}
+        itunesSearchTerm="rihana"
+        itunesSearchData={{
+          resultCount: 0
+        }}
+      />
+    );
+    let mockIntl = createIntlUtil();
+    setIntl(mockIntl);
+    expect(queryByText(translate('itunes_search_default'))).toBeInTheDocument();
   });
 });

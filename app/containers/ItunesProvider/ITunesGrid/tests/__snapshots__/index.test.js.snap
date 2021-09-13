@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
+exports[`<ITunesGridContainer /> tests should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ITunesGrid__Container-hu5283-1 fELbma"
+      class="ITunesGrid__Container-sc-19z1jvs-1 hVFcwi"
     >
       <div
-        class="ITunesGrid__RightContent-hu5283-2 bmUFbH"
+        class="ITunesGrid__RightContent-sc-19z1jvs-2 lmyGwT"
       >
         <div
           class="Clickable__StyledClickable-sc-19lp5om-0 grlVIv"
@@ -22,7 +22,7 @@ exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ant-card ant-card-bordered ITunesGrid__CustomCard-hu5283-0 jpgKPr"
+        class="ant-card ant-card-bordered ITunesGrid__CustomCard-sc-19z1jvs-0 etVLYn"
         maxwidth="500"
       >
         <div
@@ -92,7 +92,7 @@ exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ant-card ant-card-bordered ITunesGrid__CustomCard-hu5283-0 fPQceh"
+        class="ant-card ant-card-bordered ITunesGrid__CustomCard-sc-19z1jvs-0 bxHgPJ"
         color="grey"
       >
         <div

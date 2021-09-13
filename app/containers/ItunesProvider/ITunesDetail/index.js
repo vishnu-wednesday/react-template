@@ -9,7 +9,7 @@ import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
 import { connect } from 'react-redux';
 
-import { homeContainerCreators } from '../reducer';
+import { iTunesCreators } from '../reducer';
 import { selectTrackDetails } from '../selectors';
 import { trackDetailsSaga } from '../saga';
 import { fonts, colors, styles } from '@themes';
@@ -215,7 +215,7 @@ ITunesDetailContainer.defaultProps = {
 };
 
 function mapDispatchToProps(dispatch) {
-  const { requestGetTrackDetails, clearTrackDetails } = homeContainerCreators;
+  const { requestGetTrackDetails, clearTrackDetails } = iTunesCreators;
   return {
     dispatchGetTrackDetails: (lookUpId) => dispatch(requestGetTrackDetails(lookUpId)),
     dispatchClearTrackDetails: () => dispatch(clearTrackDetails())
@@ -228,11 +228,11 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export const ITunesDetailTest = compose(injectIntl)(ITunesDetailContainer);
-
 export default compose(
   injectIntl,
   withConnect,
   memo,
-  injectSaga({ key: 'homeContainer', saga: trackDetailsSaga })
+  injectSaga({ key: 'itunesContainer', saga: trackDetailsSaga })
 )(ITunesDetailContainer);
+
+export const ITunesDetailTest = compose(injectIntl)(ITunesDetailContainer);
