@@ -1,27 +1,31 @@
 name: ITunes Search CD
 
 on:
-  push:
+  pull_request:
     branches:
       - master
-      - feat/ci-cd-testing
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix: 
+      matrix:
         node-version: [14.x]
-    
-    steps: 
+
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Use Node.JS ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Extract branch name
+        shell: bash
+        run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
+        id: extract_branch
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -34,8 +38,7 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn build
+        run: yarn build:uat
 
       - name: Deploy
-        run: aws s3 sync ./build s3://itunessearch-demo
-
+        run: aws s3 sync ./build s3://itunessearch-demo/${{steps.extract_branch.outputs.branch}}
