@@ -4,7 +4,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
 <body>
   <div>
     <div
-      class="ITunesDetail__Container-sc-1bok3w6-0 fGhvOg"
+      class="ITunesDetail__Container-sc-1kdn98s-0 iroCvn"
     >
       <div
         class="ant-row"
@@ -15,13 +15,13 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
           style="padding-left: 8px; padding-right: 8px;"
         >
           <div
-            class="ant-card ant-card-bordered ant-card-hoverable ITunesDetail__StyledCard-sc-1bok3w6-1 JLTFX"
+            class="ant-card ant-card-bordered ant-card-hoverable ITunesDetail__StyledCard-sc-1kdn98s-1 bbSgik"
           >
             <div
               class="ant-card-body"
             >
               <section
-                class="ITunesDetail__ImageAudioSection-sc-1bok3w6-3 jXcwa-D"
+                class="ITunesDetail__ImageAudioSection-sc-1kdn98s-3 bDMRRo"
               >
                 <div
                   class="ant-image"
@@ -91,16 +91,16 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                 role="separator"
               />
               <section
-                class="ITunesDetail__StyledSection-sc-1bok3w6-2"
+                class="ITunesDetail__StyledSection-sc-1kdn98s-2"
               >
                 <p
-                  class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__HeadingT-sc-1bok3w6-4 eiwRUw"
+                  class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__HeadingT-sc-1kdn98s-4 XzTff"
                   data-testid="t"
                 >
                   
                 </p>
                 <p
-                  class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__StyleT-sc-1bok3w6-5 jvNQIL"
+                  class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__StyleT-sc-1kdn98s-5 cVklbg"
                   data-testid="t"
                 >
                   
@@ -148,7 +148,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-title"
                       >
                         <p
-                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1kdn98s-6 befCwD"
                           data-testid="t"
                         >
                           Primary Genre:
@@ -161,7 +161,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                           class="ant-tag ant-tag-green-inverse"
                         >
                           <p
-                            class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                            class="ITunesDetail__StyledPara-sc-1kdn98s-7 hqCqyI"
                           />
                         </span>
                       </div>
@@ -194,7 +194,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-title"
                       >
                         <p
-                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1kdn98s-6 befCwD"
                           data-testid="t"
                         >
                           Collection Name:
@@ -204,7 +204,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-description"
                       >
                         <p
-                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                          class="ITunesDetail__StyledPara-sc-1kdn98s-7 hqCqyI"
                         />
                       </div>
                     </div>
@@ -236,7 +236,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-title"
                       >
                         <p
-                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1kdn98s-6 befCwD"
                           data-testid="t"
                         >
                           Track Duration:
@@ -246,7 +246,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-description"
                       >
                         <p
-                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                          class="ITunesDetail__StyledPara-sc-1kdn98s-7 hqCqyI"
                           data-testid="parsed-value"
                         >
                           0:00
@@ -281,7 +281,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-title"
                       >
                         <p
-                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1kdn98s-6 befCwD"
                           data-testid="t"
                         >
                           Track Explicit:
@@ -291,7 +291,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-description"
                       >
                         <p
-                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                          class="ITunesDetail__StyledPara-sc-1kdn98s-7 hqCqyI"
                         />
                       </div>
                     </div>
@@ -323,7 +323,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-title"
                       >
                         <p
-                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1bok3w6-6 jTqqWY"
+                          class="T__StyledText-gjlic1-0 jbStwN ITunesDetail__ListTitleT-sc-1kdn98s-6 befCwD"
                           data-testid="t"
                         >
                           Year of Release:
@@ -333,7 +333,7 @@ exports[`<ITunesDetails Container Tests should render and match the snapshot 1`]
                         class="ant-list-item-meta-description"
                       >
                         <p
-                          class="ITunesDetail__StyledPara-sc-1bok3w6-7 kicKJP"
+                          class="ITunesDetail__StyledPara-sc-1kdn98s-7 hqCqyI"
                         >
                           NaN
                         </p>

@@ -6,18 +6,18 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { getTracks } from '@services/repoApi';
 import { apiResponseGenerator } from '@utils/testUtils';
-import homeContainerSaga, { getItunesResults, getTrackDetails, trackDetailsSaga } from '../saga';
-import { homeContainerTypes } from '../reducer';
+import iTunesSearhSaga, { getItunesResults, getTrackDetails, trackDetailsSaga } from '../saga';
+import { iTunesContainerTypes } from '../reducer';
 import { selectSearchData } from '../selectors';
 // import { selectSearchData, selectTrackDetails } from '../selectors';
 
 describe('HomeContainer saga tests', () => {
-  const generator = homeContainerSaga();
+  const generator = iTunesSearhSaga();
   const searchTerm = 'rihana';
   let getItunesResGenerator = getItunesResults({ searchTerm });
 
   it('should start task to watch for REQUEST_GET_TRACKS action', () => {
-    expect(generator.next().value).toEqual(takeLatest(homeContainerTypes.REQUEST_GET_TRACKS, getItunesResults));
+    expect(generator.next().value).toEqual(takeLatest(iTunesContainerTypes.REQUEST_GET_TRACKS, getItunesResults));
   });
 
   it('should ensure that the action FAILURE_GET_TRACKS is dispatched when the api call fails', () => {
@@ -28,7 +28,7 @@ describe('HomeContainer saga tests', () => {
     };
     expect(getItunesResGenerator.next(apiResponseGenerator(false, errorResponse)).value).toEqual(
       put({
-        type: homeContainerTypes.FAILURE_GET_TRACKS,
+        type: iTunesContainerTypes.FAILURE_GET_TRACKS,
         error: errorResponse
       })
     );
@@ -44,7 +44,7 @@ describe('HomeContainer saga tests', () => {
     };
     expect(getItunesResGenerator.next(apiResponseGenerator(true, reposResponse)).value).toEqual(
       put({
-        type: homeContainerTypes.SUCCESS_GET_TRACKS,
+        type: iTunesContainerTypes.SUCCESS_GET_TRACKS,
         data: reposResponse
       })
     );
@@ -62,7 +62,7 @@ describe('ITunes get track details saga tests', () => {
   });
 
   it('should start up the saga', () => {
-    expect(generator.next().value).toEqual(takeLatest(homeContainerTypes.REQUEST_GET_TRACK_DETAILS, getTrackDetails));
+    expect(generator.next().value).toEqual(takeLatest(iTunesContainerTypes.REQUEST_GET_TRACK_DETAILS, getTrackDetails));
   });
 
   it('should ensure that SUCCESS_GET_TRACK_DETAILS is dispatched is api succeeds', () => {
@@ -81,7 +81,7 @@ describe('ITunes get track details saga tests', () => {
     getItunesTrackDetailsGenerator.next();
     expect(getItunesTrackDetailsGenerator.next(apiResponseGenerator(true, trackDetailResponse)).value).toEqual(
       put({
-        type: homeContainerTypes.SUCCESS_GET_TRACK_DETAILS,
+        type: iTunesContainerTypes.SUCCESS_GET_TRACK_DETAILS,
         // remember we return the first value of the array..
         trackDetails: trackDetailResponse.results[0]
       })
@@ -97,7 +97,7 @@ describe('ITunes get track details saga tests', () => {
     };
     expect(getItunesTrackDetailsGenerator.next(apiResponseGenerator(false, errorResponse)).value).toEqual(
       put({
-        type: homeContainerTypes.FAILURE_GET_TRACK_DETAILS,
+        type: iTunesContainerTypes.FAILURE_GET_TRACK_DETAILS,
         detailError: errorResponse
       })
     );
@@ -116,7 +116,7 @@ describe('ITunes get track details saga tests', () => {
       }).value
     ).toEqual(
       put({
-        type: homeContainerTypes.SUCCESS_GET_TRACK_DETAILS,
+        type: iTunesContainerTypes.SUCCESS_GET_TRACK_DETAILS,
         trackDetails: {
           trackId: 123456,
           detail: 'test'

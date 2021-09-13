@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { browserHistory, BrowserRouter, Router, Route } from 'react-router-dom';
+import { browserHistory, BrowserRouter, MemoryRouter, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
@@ -49,15 +49,16 @@ export function renderWithRouterMatch(
   ui,
   { path = '/', route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {}
 ) {
-  return {
-    ...render(
+  const store = configureStore({}, browserHistory).store;
+  return render(
+    <Provider store={store}>
       <IntlProvider locale={DEFAULT_LOCALE} messages={translationMessages[DEFAULT_LOCALE]}>
-        <Router history={history}>
+        <MemoryRouter initialEntries={[route]}>
           <Route path={path}>{ui}</Route>
-        </Router>
+        </MemoryRouter>
       </IntlProvider>
-    )
-  };
+    </Provider>
+  );
 }
 
 export const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
