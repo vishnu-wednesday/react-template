@@ -1,5 +1,5 @@
 /**
- * Test homeContainer sagas
+ * Test ITunesSaga sagas
  */
 
 /* eslint-disable redux-saga/yield-effects */
@@ -11,7 +11,7 @@ import { iTunesContainerTypes } from '../reducer';
 import { selectSearchData } from '../selectors';
 // import { selectSearchData, selectTrackDetails } from '../selectors';
 
-describe('HomeContainer saga tests', () => {
+describe('ITunesConatiner saga tests', () => {
   const generator = iTunesSearhSaga();
   const searchTerm = 'rihana';
   let getItunesResGenerator = getItunesResults({ searchTerm });

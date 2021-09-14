@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for HomeContainer
+ * Asynchronously loads the component for ITunesGrid
  *
  */
 

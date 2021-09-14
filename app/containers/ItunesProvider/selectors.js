@@ -15,7 +15,7 @@ import { iTunesServiceInitialState } from './reducer';
 // is this wrong? https://redux.js.org/usage/deriving-data-selectors#createselector-overview. Read the Warning
 // we have DRY breakage here...
 //export const selectITunesContainer = () => createSelector(selectITunesContainerDomain, (substate) => substate);
-export const selectITunesContainer = (state) => state.homeContainer || iTunesServiceInitialState;
+export const selectITunesContainer = (state) => state.iTunesContainer || iTunesServiceInitialState;
 
 export const selectSearchData = () => createSelector(selectITunesContainer, (substate) => get(substate, 'searchData'));
 
