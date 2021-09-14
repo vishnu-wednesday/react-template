@@ -1,6 +1,6 @@
 /*
  *
- * HomeContainer reducer
+ * ITunesContainer reducer
  *
  */
 import produce from 'immer';

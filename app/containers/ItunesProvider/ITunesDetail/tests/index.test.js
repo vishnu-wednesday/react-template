@@ -5,15 +5,37 @@
  *
  */
 
-import React, { Suspense } from 'react';
+import React from 'react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 
 import { timeout, renderWithRouterMatch } from '@utils/testUtils';
 import { ITunesDetailTest as ITunesDetailContainer } from '../index';
 import ITunesDetailContainerLazily from '../Loadable';
+import { mockData } from '@app/components/TrackCard/tests/mockTrackResponse';
 
 describe('<ITunesDetails Container Tests', () => {
   let submitSpy;
   let clearSpy;
+
+  const server = setupServer(
+    rest.get('/lookup', (req, res, ctx) => {
+      const query = req.url.searchParams;
+      const id = query.get('id');
+      return res(
+        ctx.json({
+          ok: true,
+          results: [
+            {
+              songDetails: id
+            }
+          ]
+        })
+      );
+    })
+  );
+
+  beforeAll(() => server.listen());
 
   beforeEach(() => {
     submitSpy = jest.fn();
@@ -26,9 +48,12 @@ describe('<ITunesDetails Container Tests', () => {
 
   it('should render with loadable', async () => {
     const { baseElement } = await renderWithRouterMatch(
-      <Suspense>
-        <ITunesDetailContainerLazily dispatchGetTrackDetails={submitSpy} dispatchClearTrackDetails={clearSpy} />
-      </Suspense>,
+      <ITunesDetailContainerLazily
+        dispatchGetTrackDetails={submitSpy}
+        dispatchClearTrackDetails={clearSpy}
+        trackDetails={mockData.results[0]}
+      />,
+
       {
         route: '/track/123',
         path: '/track/:id'

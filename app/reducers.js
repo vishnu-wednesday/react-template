@@ -17,7 +17,7 @@ export default function createReducer(injectedReducer = {}) {
     ...injectedReducer,
     language: languageProviderReducer,
     router: connectRouter(history),
-    homeContainer: iTunesContainerReducer
+    iTunesContainer: iTunesContainerReducer
   });
 
   return rootReducer;

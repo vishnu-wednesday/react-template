@@ -7,6 +7,7 @@ export default {
     },
     exact: true
   },
+
   trackDetail: {
     route: '/trackDetail/:id',
     props: {

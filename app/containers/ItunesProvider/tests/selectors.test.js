@@ -6,7 +6,7 @@ import {
   selectTrackDetails
 } from '../selectors';
 
-describe('HomeContainer selector tests', () => {
+describe('ITunesContainer selector tests', () => {
   let mockedState;
   let searchTerm;
   let searchData;
@@ -20,7 +20,7 @@ describe('HomeContainer selector tests', () => {
     trackDetails = { resultCount: 1, results: { songDetails: 'abc' } };
 
     mockedState = {
-      homeContainer: {
+      iTunesContainer: {
         searchTerm,
         searchData,
         searchError,
@@ -28,8 +28,8 @@ describe('HomeContainer selector tests', () => {
       }
     };
   });
-  it('should select the homeContainer state', () => {
-    expect(selectITunesContainer(mockedState)).toEqual(mockedState.homeContainer);
+  it('should select the iTunesContainer state', () => {
+    expect(selectITunesContainer(mockedState)).toEqual(mockedState.iTunesContainer);
   });
   it('should select the searchTerm', () => {
     const repoSelector = selectSearchTerm();

@@ -1,6 +1,6 @@
 /**
  *
- * Tests for HomeContainer (ITunesGrid)
+ * Tests for (ITunesGrid)
  *
  */
 
