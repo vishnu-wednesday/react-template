@@ -64,7 +64,7 @@ export function TrackCard({ index, track, intl, loading, setAudioControl }) {
   return (
     <>
       <If condition={!!track}>
-        <Link to={`/${getTrackOrCollection(track).id}`} key={index}>
+        <Link to={`/track/${getTrackOrCollection(track).id}`} key={index}>
           <Card key={index} data-testid="track-card">
             <Skeleton loading={loading} avatar active>
               <Meta

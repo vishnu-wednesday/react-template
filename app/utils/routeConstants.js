@@ -8,7 +8,7 @@ export default {
     exact: true
   },
   trackDetail: {
-    route: '/:id',
+    route: '/track/:id',
     props: {
       maxwidth: 1400,
       padding: 20

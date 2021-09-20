@@ -81,12 +81,8 @@ export function ITunesDetailContainer({
   const { id: lookUpId } = useParams();
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(lookUpId);
     dispatchGetTrackDetails(lookUpId);
     return () => {
-      // eslint-disable-next-line no-console
-      console.log('cleared somehow');
       dispatchClearTrackDetails();
     };
   }, [lookUpId]);
