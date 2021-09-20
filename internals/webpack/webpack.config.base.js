@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const dotenv = require('dotenv');
 const colors = require('../../app/themes/colors');
 const { getBasePublicPath } = require('../utils');
+
 const publicPath = getBasePublicPath();
 
 const dotEnvFile = process.env.NODE_ENV === 'production' ? `.env` : `.env.${process.env.NODE_ENV}`;
@@ -26,6 +27,7 @@ module.exports = (options) => ({
   entry: options.entry,
   output: Object.assign(
     {
+      // Compile into js/build.js
       path: path.resolve(process.cwd(), 'build'),
       publicPath
     },
@@ -163,6 +165,7 @@ module.exports = (options) => ({
       '@components': path.resolve(__dirname, '../../app/components'),
       '@containers': path.resolve(__dirname, '../../app/containers'),
       '@utils': path.resolve(__dirname, '../../app/utils'),
+      '@translations': path.resolve(__dirname, '../../app/translations'),
       '@services': path.resolve(__dirname, '../../app/services'),
       '@themes': path.resolve(__dirname, '../../app/themes'),
       '@images': path.resolve(__dirname, '../../app/images'),

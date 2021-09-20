@@ -5,8 +5,8 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const OfflinePlugin = require('@lcdp/offline-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-
 const { getBasePublicPath, isUAT } = require('../utils');
+
 const publicPath = getBasePublicPath();
 
 module.exports = require('./webpack.config.base')({
