@@ -3,7 +3,7 @@
  * TrackCard
  *
  */
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Avatar, Skeleton } from 'antd';
@@ -41,7 +41,8 @@ const StyledCaption = styled.figcaption`
   ${styles.margin.left(0.5)}
 `;
 
-export function TrackCard({ index, track, intl, loading }) {
+export function TrackCard({ index, track, intl, loading, setAudioControl }) {
+  const audioRef = useRef(null);
   const getTrackOrCollection = (item) => {
     if (item.wrapperType === 'track') {
       return {
@@ -53,6 +54,10 @@ export function TrackCard({ index, track, intl, loading }) {
       name: item.collectionName,
       id: item.collectionId
     };
+  };
+
+  const audioControl = () => {
+    setAudioControl(audioRef);
   };
 
   return (
@@ -89,7 +94,13 @@ export function TrackCard({ index, track, intl, loading }) {
               />
               <figure>
                 <StyledCaption>{intl.formatMessage({ id: 'listen_to_it' })}</StyledCaption>
-                <Audio controls src={track.previewUrl} data-testid="audio-player">
+                <Audio
+                  controls
+                  src={track.previewUrl}
+                  data-testid="audio-player"
+                  ref={audioRef}
+                  onPlaying={() => audioControl()}
+                >
                   <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
                 </Audio>
               </figure>
@@ -106,7 +117,7 @@ TrackCard.propTypes = {
   track: PropTypes.object,
   intl: PropTypes.object,
   loading: PropTypes.bool,
-  history: PropTypes.object
+  setAudioControl: PropTypes.func
 };
 
 TrackCard.defaultProps = {
