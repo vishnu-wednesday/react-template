@@ -2,37 +2,34 @@ name: ITunes Search CD
 
 on:
   pull_request:
-    branches:
-      - master
-
+    branches: [master]
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x]
+    env: #2
+      SOURCE_DIR: './build/'
+      AWS_REGION: 'ap-south-1'
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      PATHS: '/*'
+      AWS_S3_BUCKET: 'itunessearch-demo'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Use Node.JS ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Extract branch name
         shell: bash
         run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
         id: extract_branch
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Use node.js
+        uses: actions/setup-node@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: yarn
@@ -40,5 +37,9 @@ jobs:
       - name: Build
         run: yarn build:uat
 
-      - name: Deploy
-        run: aws s3 sync ./build s3://itunessearch-demo/${{steps.extract_branch.outputs.branch}}
+      - name: AWS Deploy
+        uses: jakejarvis/s3-sync-action@v0.5.0
+        with:
+          args: --acl public-read --follow-symlinks
+        env:
+          DEST_DIR: ${{ steps.extract_branch.outputs.branch }}
