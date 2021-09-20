@@ -78,6 +78,14 @@ export function HomeContainer({
 
   const history = useHistory();
 
+  let currentTrack;
+  const controlPlayPause = (audioRef) => {
+    if (currentTrack?.current?.src !== audioRef?.current?.src) {
+      currentTrack?.current?.pause();
+    }
+    currentTrack = audioRef;
+  };
+
   const handleOnChange = (rName) => {
     if (!isEmpty(rName)) {
       dispatchItunesSearch(rName);
@@ -112,7 +120,12 @@ export function HomeContainer({
             renderItem={(item) => {
               return (
                 <Col xs={24} md={8} span={8}>
-                  <TrackCard index={item.collectionId} track={item} loading={loading} />
+                  <TrackCard
+                    index={item.collectionId}
+                    track={item}
+                    loading={loading}
+                    setAudioControl={(audioRef) => controlPlayPause(audioRef)}
+                  />
                 </Col>
               );
             }}

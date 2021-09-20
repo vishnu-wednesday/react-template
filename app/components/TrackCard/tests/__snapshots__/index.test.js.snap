@@ -4,7 +4,7 @@ exports[`<TrackCard /> should render and match the snapshot 1`] = `
 <body>
   <div>
     <a
-      href="/track/undefined"
+      href="/undefined"
     >
       <div
         class="ant-card ant-card-bordered"
