@@ -44,10 +44,14 @@ const iTunesContainerReducer = (state = iTunesServiceInitialState, action) =>
         break;
 
       case iTunesContainerTypes.REQUEST_GET_TRACK_DETAILS:
+        // eslint-disable-next-line no-console
+        console.log('Here', action.lookUpId);
         draft.lookUpId = action.lookUpId;
         break;
 
       case iTunesContainerTypes.SUCCESS_GET_TRACK_DETAILS:
+        // eslint-disable-next-line no-console
+        console.log('Here', action.trackDetails);
         draft.trackDetails = action.trackDetails;
         break;
 

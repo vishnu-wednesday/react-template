@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 
 import { iTunesCreators } from '../reducer';
 import { selectTrackDetails } from '../selectors';
-import { trackDetailsSaga } from '../saga';
+import iTunesSearchSaga from '../saga';
 import { fonts, colors, styles } from '@themes';
 import { T } from '@components/T';
 import Clickable from '@components/Clickable';
@@ -85,7 +85,7 @@ export function ITunesDetailContainer({
     return () => {
       dispatchClearTrackDetails();
     };
-  }, [lookUpId]);
+  }, []);
 
   const millisToMinutesAndSeconds = (millis) => {
     let minutes = Math.floor(millis / 60000);
@@ -214,7 +214,7 @@ ITunesDetailContainer.defaultProps = {
   }
 };
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const { requestGetTrackDetails, clearTrackDetails } = iTunesCreators;
   return {
     dispatchGetTrackDetails: (lookUpId) => dispatch(requestGetTrackDetails(lookUpId)),
@@ -232,7 +232,7 @@ export default compose(
   injectIntl,
   withConnect,
   memo,
-  injectSaga({ key: 'itunesContainer', saga: trackDetailsSaga })
+  injectSaga({ key: 'itunesContainer', saga: iTunesSearchSaga })
 )(ITunesDetailContainer);
 
 export const ITunesDetailTest = compose(injectIntl)(ITunesDetailContainer);

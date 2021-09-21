@@ -6,7 +6,7 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { getTracks } from '@services/repoApi';
 import { apiResponseGenerator } from '@utils/testUtils';
-import iTunesSearhSaga, { getItunesResults, getTrackDetails, trackDetailsSaga } from '../saga';
+import iTunesSearhSaga, { getItunesResults, getTrackDetails } from '../saga';
 import { iTunesContainerTypes } from '../reducer';
 import { selectSearchData } from '../selectors';
 // import { selectSearchData, selectTrackDetails } from '../selectors';
@@ -52,16 +52,18 @@ describe('ITunesConatiner saga tests', () => {
 });
 
 describe('ITunes get track details saga tests', () => {
+  // eslint-disable-next-line no-unused-vars
   let generator;
   let getItunesTrackDetailsGenerator;
   let lookUpId;
   beforeEach(() => {
-    generator = trackDetailsSaga();
+    generator = iTunesSearhSaga();
     lookUpId = '123456';
     getItunesTrackDetailsGenerator = getTrackDetails({ type: 'TEST', lookUpId });
   });
 
   it('should start up the saga', () => {
+    generator.next();
     expect(generator.next().value).toEqual(takeLatest(iTunesContainerTypes.REQUEST_GET_TRACK_DETAILS, getTrackDetails));
   });
 

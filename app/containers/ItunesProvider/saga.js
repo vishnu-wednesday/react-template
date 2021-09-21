@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { put, call, takeLatest, select } from 'redux-saga/effects';
 import { getTracks, lookUpTrackDetails } from '@services/repoApi';
 import { iTunesContainerTypes, iTunesCreators } from './reducer';
@@ -18,7 +19,9 @@ export function* getItunesResults(action) {
 
 export function* getTrackDetails(action) {
   const trackDetails = yield select(selectSearchData());
+  console.log('TrackDetails', trackDetails);
   const trackOfInterest = trackDetails?.results?.find((track) => track.trackId === parseInt(action.lookUpId, 10));
+  console.log('trackOfinterest', trackOfInterest);
   if (trackOfInterest) {
     yield put(successGetTrackDetails(trackOfInterest));
   } else {
@@ -35,8 +38,5 @@ export function* getTrackDetails(action) {
 // Individual exports for testing
 export default function* iTunesSearchSaga() {
   yield takeLatest(REQUEST_GET_TRACKS, getItunesResults);
-}
-
-export function* trackDetailsSaga() {
   yield takeLatest(REQUEST_GET_TRACK_DETAILS, getTrackDetails);
 }
