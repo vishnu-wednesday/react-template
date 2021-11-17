@@ -3,7 +3,7 @@ name: ITunes Search CD
 on:
   pull_request:
     branches:
-      - master
+      - staging
 
 jobs:
   build-deploy:

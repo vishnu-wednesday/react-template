@@ -1,7 +1,7 @@
 name: CI pipeline for iTunes app
 
 on:
-  pull_request:
+  push:
     branches: [master]
 
 jobs:
@@ -22,14 +22,19 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
 
+      - name: Extract branch name
+        shell: bash
+        run: echo ::set-output name=branch::${{github.event.pull_request.base.ref}}
+        id: branch
+
       - name: Install Deps
         run: yarn --prefer-offline
 
       - name: Lint
         run: yarn lint
 
-      - name: Test
-        run: yarn test
+      - name: Output
+        run: ${{github.base_ref}}
 
-      - name: Build
-        run: yarn build
+      - name: OuNew tput
+        run: ${{github.event.pull_request}}
