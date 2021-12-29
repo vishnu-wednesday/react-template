@@ -1,12 +1,12 @@
-name: ITunes Search CD
-
+name: Continuous Deployment Integration
 on:
   pull_request:
+  push:
     branches:
       - staging
 
 jobs:
-  build-deploy:
+  BUILD_DEPLOY_ON_S3:
     runs-on: ubuntu-latest
 
     strategy:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Use Node.JS ${{ matrix.node-version }}
+      - name: Deploying on ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
@@ -25,20 +25,20 @@ jobs:
       - name: Extract branch name
         shell: bash
         run: echo ::set-output name=branch::${{github.event.pull_request.head.ref}}
-        id: extract_branch
+        id: branch
 
-      - name: Configure AWS credentials
+      - name: Configuring AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          aws-region: 'ap-south-1'
 
       - name: Install dependencies
         run: yarn
 
       - name: Build
-        run: yarn build:uat
+        run: export BRANCH_NAME=${{ steps.branch.outputs.branch }} && yarn build:uat
 
       - name: Deploy
-        run: aws s3 sync ./build s3://itunessearch-demo/${{steps.extract_branch.outputs.branch}}
+        run: aws s3 sync ./build s3://itunessearch-demo/${{ steps.branch.outputs.branch }}

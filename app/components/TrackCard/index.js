@@ -3,14 +3,15 @@
  * TrackCard
  *
  */
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Card, Avatar, Skeleton } from 'antd';
 import { injectIntl } from 'react-intl';
 import { compose } from 'redux';
-import { colors, fonts, styles } from '@themes';
+import { Link } from 'react-router-dom';
 
+import { colors, fonts, styles } from '@themes';
 import T from '@components/T';
 import If from '@components/If';
 
@@ -40,53 +41,72 @@ const StyledCaption = styled.figcaption`
   ${styles.margin.left(0.5)}
 `;
 
-const getTrackOrCollection = (item) => {
-  if (item.wrapperType === 'track') {
-    return item.trackName;
-  }
-  return item.collectionName;
-};
+export function TrackCard({ index, track, intl, loading, setAudioControl }) {
+  const audioRef = useRef(null);
+  const getTrackOrCollection = (item) => {
+    if (item.wrapperType === 'track') {
+      return {
+        name: item.trackName,
+        id: item.trackId
+      };
+    }
+    return {
+      name: item.collectionName,
+      id: item.collectionId
+    };
+  };
 
-export function TrackCard({ index, track, intl, loading }) {
+  const audioControl = () => {
+    setAudioControl(audioRef);
+  };
+
   return (
     <>
       <If condition={!!track}>
-        <Card key={index} data-testid="track-card">
-          <Skeleton loading={loading} avatar active>
-            <Meta
-              avatar={
-                <Avatar
-                  size={{
-                    xs: 32,
-                    sm: 38,
-                    md: 40,
-                    lg: 64,
-                    xl: 80,
-                    xxl: 100
-                  }}
-                  src={track.artworkUrl100}
-                />
-              }
-              description={
-                <div>
-                  <AlbumNameT
-                    id="track_or_collection"
-                    values={{ value: getTrackOrCollection(track) }}
-                    clearFloat={true}
-                    data-testid="track_or_collection"
+        <Link to={`/trackDetail/${getTrackOrCollection(track).id}`} key={index}>
+          <Card key={index} data-testid="track-card">
+            <Skeleton loading={loading} avatar active>
+              <Meta
+                avatar={
+                  <Avatar
+                    size={{
+                      xs: 32,
+                      sm: 38,
+                      md: 40,
+                      lg: 64,
+                      xl: 80,
+                      xxl: 100
+                    }}
+                    src={track.artworkUrl100}
                   />
-                  <StyleT id="artist_name" values={{ artistName: track.artistName }} clearFloat={true} />
-                </div>
-              }
-            />
-            <figure>
-              <StyledCaption>{intl.formatMessage({ id: 'listen_to_it' })}</StyledCaption>
-              <Audio controls src={track.previewUrl} data-testid="audio-player">
-                <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
-              </Audio>
-            </figure>
-          </Skeleton>
-        </Card>
+                }
+                description={
+                  <div>
+                    <AlbumNameT
+                      id="track_or_collection"
+                      values={{ value: getTrackOrCollection(track).name }}
+                      clearFloat={true}
+                      data-testid="track_or_collection"
+                    />
+                    <StyleT id="artist_name" values={{ artistName: track.artistName }} clearFloat={true} />
+                  </div>
+                }
+              />
+              <figure>
+                <StyledCaption>{intl.formatMessage({ id: 'listen_to_it' })}</StyledCaption>
+                <Audio
+                  controls
+                  src={track.previewUrl}
+                  data-testid="audio-player"
+                  ref={audioRef}
+                  onPlaying={() => audioControl()}
+                >
+                  <T id="audio_no_support" values={{ code: (chunks) => <code>{chunks}</code> }} />
+                </Audio>
+              </figure>
+            </Skeleton>
+          </Card>
+        </Link>
       </If>
     </>
   );
@@ -96,7 +116,8 @@ TrackCard.propTypes = {
   index: PropTypes.number,
   track: PropTypes.object,
   intl: PropTypes.object,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  setAudioControl: PropTypes.func
 };
 
 TrackCard.defaultProps = {

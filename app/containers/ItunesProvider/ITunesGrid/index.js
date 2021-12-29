@@ -13,9 +13,9 @@ import { useHistory } from 'react-router-dom';
 import T from '@components/T';
 import Clickable from '@components/Clickable';
 import { injectSaga } from 'redux-injectors';
-import { selectHomeContainer, selectSearchData, selectSearchError, selectSearchTerm } from './selectors';
-import { homeContainerCreators } from './reducer';
-import homeContainerSaga from './saga';
+import selectITunesContainer, { selectSearchData, selectSearchError, selectSearchTerm } from '../selectors';
+import { iTunesCreators } from '../reducer';
+import iTunesSearchSaga from '../saga';
 import For from '@components/For';
 import TrackCard from '@components/TrackCard';
 import If from '@components/If';
@@ -49,7 +49,7 @@ const RightContent = styled.div`
 const StyledDiv = styled.div`
   ${styles.margin.bottom(1)}
 `;
-export function HomeContainer({
+export function ITunesGridContainer({
   dispatchItunesSearch,
   dispatchClearItunesSearch,
   intl,
@@ -78,6 +78,14 @@ export function HomeContainer({
 
   const history = useHistory();
 
+  let currentTrack;
+  const controlPlayPause = (audioRef) => {
+    if (currentTrack?.current?.src !== audioRef?.current?.src) {
+      currentTrack?.current?.pause();
+    }
+    currentTrack = audioRef;
+  };
+
   const handleOnChange = (rName) => {
     if (!isEmpty(rName)) {
       dispatchItunesSearch(rName);
@@ -86,7 +94,7 @@ export function HomeContainer({
       dispatchClearItunesSearch();
     }
   };
-  const debouncedHandleOnChange = debounce(handleOnChange, 200);
+  const debouncedHandleOnChange = debounce(handleOnChange, 400);
 
   const renderSearchResult = () => {
     const items = get(itunesSearchData, 'results', []);
@@ -109,10 +117,15 @@ export function HomeContainer({
           <For
             of={items}
             ParentComponent={(props) => <Row {...props} />}
-            renderItem={(item) => {
+            renderItem={(item, index) => {
               return (
-                <Col xs={24} md={8} span={8}>
-                  <TrackCard index={item.collectionId} track={item} loading={loading} />
+                <Col xs={24} md={8} span={8} key={index}>
+                  <TrackCard
+                    index={item.collectionId}
+                    track={item}
+                    loading={loading}
+                    setAudioControl={(audioRef) => controlPlayPause(audioRef)}
+                  />
                 </Col>
               );
             }}
@@ -165,7 +178,7 @@ export function HomeContainer({
   );
 }
 
-HomeContainer.propTypes = {
+ITunesGridContainer.propTypes = {
   dispatchItunesSearch: PropTypes.func,
   dispatchClearItunesSearch: PropTypes.func,
   intl: PropTypes.object,
@@ -173,27 +186,27 @@ HomeContainer.propTypes = {
     resultCount: PropTypes.number,
     results: PropTypes.array
   }),
-  itunesSearchError: PropTypes.object,
+  itunesSearchError: PropTypes.string,
   itunesSearchTerm: PropTypes.string,
   history: PropTypes.object,
   maxwidth: PropTypes.number,
   padding: PropTypes.number
 };
 
-HomeContainer.defaultProps = {
+ITunesGridContainer.defaultProps = {
   maxwidth: 500,
   padding: 20
 };
 
 const mapStateToProps = createStructuredSelector({
-  homeContainer: selectHomeContainer,
+  homeContainer: selectITunesContainer,
   itunesSearchData: selectSearchData(),
   itunesSearchError: selectSearchError(),
   itunesSearchTerm: selectSearchTerm()
 });
 
 function mapDispatchToProps(dispatch) {
-  const { requestGetTracks, clearTracks } = homeContainerCreators;
+  const { requestGetTracks, clearTracks } = iTunesCreators;
   return {
     dispatchItunesSearch: (searchTerm) => dispatch(requestGetTracks(searchTerm)),
     dispatchClearItunesSearch: () => dispatch(clearTracks())
@@ -206,7 +219,7 @@ export default compose(
   injectIntl,
   withConnect,
   memo,
-  injectSaga({ key: 'homeContainer', saga: homeContainerSaga })
-)(HomeContainer);
+  injectSaga({ key: 'itunesContainer', saga: iTunesSearchSaga })
+)(ITunesGridContainer);
 
-export const HomeContainerTest = compose(injectIntl)(HomeContainer);
+export const ItunesGridTest = compose(injectIntl)(ITunesGridContainer);
